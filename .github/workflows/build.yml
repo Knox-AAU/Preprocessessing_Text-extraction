@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Replace tokens in appsettings with values from the repository secrets
       #- uses: cschleiden/replace-tokens@v1
