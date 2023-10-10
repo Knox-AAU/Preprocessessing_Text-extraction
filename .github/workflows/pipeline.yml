@@ -1,7 +1,10 @@
+name: Run Project Pipeline
+
 on: 
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   linter:
