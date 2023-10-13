@@ -1,10 +1,10 @@
 """Module providing a function printing python version."""
 import unittest
-from Spellchecking.src.spell_checker import SpellChecker
+from spell_checker import SpellChecker
 
 class TestCase(unittest.TestCase):
     """Testing the SpellChecker class"""
-    def test_correctInitialization(self):
+    def test_correct_initialization(self):
         """ Initializaer function """
 
         # Arrange
@@ -14,9 +14,6 @@ class TestCase(unittest.TestCase):
         # Assert
         expected = sc.root.char == ""
         self.assertEqual(expected, expected)
-        
-    def test_addingWord(self):
-        """  """
 
 if __name__ == '__main__':
     unittest.main()
