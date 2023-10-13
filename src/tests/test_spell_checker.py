@@ -1,6 +1,6 @@
 """Module providing a function printing python version."""
 import unittest
-from spell_checker import SpellChecker
+from Spellchecking.spell_checker import SpellChecker
 
 class TestCase(unittest.TestCase):
     """Testing the SpellChecker class"""

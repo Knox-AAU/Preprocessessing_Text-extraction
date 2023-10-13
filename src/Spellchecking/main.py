@@ -1,6 +1,6 @@
 """ Main file """
 from flask import Flask, request, jsonify
-from spell_checker import SpellChecker
+from Spellchecking.spell_checker import SpellChecker
 app = Flask(__name__)
 
 sc = SpellChecker('./wordList.txt')
