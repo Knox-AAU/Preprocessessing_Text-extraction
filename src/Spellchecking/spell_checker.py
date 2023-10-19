@@ -34,7 +34,7 @@ class SpellChecker:
         self.word_list = word_list
         self.output = []
 
-        with open(self.word_list, encoding='utf-8') as f:
+        with open(self.word_list, encoding='ISO-8859-1', errors="ignore") as f:
             for line in f:
                 self.insert(line)
 
