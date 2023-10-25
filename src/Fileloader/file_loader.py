@@ -36,8 +36,7 @@ class FileLoader:
         try:
             images = pdf2image.convert_from_path(self.path + self.extension)
             self.last_load_status = True
-        except (NotImplementedError, PDFPopplerTimeoutError, PDFSyntaxError) as e:
-            print(type(e))
+        except (NotImplementedError, PDFPopplerTimeoutError, PDFSyntaxError):
             self.last_load_status = False
         for image in images:
             ims = ImageStructure()
@@ -55,8 +54,7 @@ class FileLoader:
         try:
             with Image.open(self.path + self.extension) as image:
                 self.last_load_status = True
-        except (NotImplementedError, PDFPopplerTimeoutError, PDFSyntaxError) as e:
-            print(e)
+        except (NotImplementedError, PDFPopplerTimeoutError, PDFSyntaxError):
             self.last_load_status = False
 
         ims = ImageStructure()
