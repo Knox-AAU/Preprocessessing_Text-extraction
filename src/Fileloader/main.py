@@ -2,7 +2,7 @@
 import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from file_loader import FileLoader
+from .file_loader import FileLoader
 
 fileLoader = FileLoader()
 

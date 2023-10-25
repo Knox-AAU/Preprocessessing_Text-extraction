@@ -1,8 +1,11 @@
 """FileLoader needs to load files, check extension and format is usable for next step"""
+import dataclasses
 import os
 import pdf2image
+from pdf2image.exceptions import (PDFPopplerTimeoutError, PDFSyntaxError)
 from PIL import Image
 
+@dataclasses.dataclass
 class ImageStructure:
     """Structure of the images we want to give to the next step"""
     def __init__(self) -> None:
@@ -13,7 +16,7 @@ class ImageStructure:
         self.mode = None
         self.file_name = None
 
-
+@dataclasses.dataclass
 class FileLoader:
     """ handling of files """
 
@@ -33,8 +36,8 @@ class FileLoader:
         try:
             images = pdf2image.convert_from_path(self.path + self.extension)
             self.last_load_status = True
-        except Exception as e:
-            print(e)
+        except (NotImplementedError, PDFPopplerTimeoutError, PDFSyntaxError) as e:
+            print(type(e))
             self.last_load_status = False
         for image in images:
             ims = ImageStructure()
@@ -50,9 +53,9 @@ class FileLoader:
     def openimage(self):
         """loads images"""
         try:
-            image = Image.open(self.path + self.extension)
-            self.last_load_status = True
-        except Exception as e:
+            with Image.open(self.path + self.extension) as image:
+                self.last_load_status = True
+        except (NotImplementedError, PDFPopplerTimeoutError, PDFSyntaxError) as e:
             print(e)
             self.last_load_status = False
 

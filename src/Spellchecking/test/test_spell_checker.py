@@ -8,7 +8,7 @@ class TestCase(unittest.TestCase):
         """ Initializaer function """
 
         # Arrange
-        sc = SpellChecker('wordList.txt')
+        sc = SpellChecker('src/Spellchecking/test/test_wordlist.txt')
 
         # Act
         # Assert
