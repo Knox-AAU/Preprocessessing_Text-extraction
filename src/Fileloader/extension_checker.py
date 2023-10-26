@@ -10,6 +10,9 @@ class ExtChecker():
 
     def check_file(self) -> str:
         """Checking file extension and calling convert if not actual extension"""
+        if os.path.exists(self.inputfile) == False:
+            raise FileNotFoundError("File doesn't exist in folder")
+
         if self.inputfile is None:
             raise ValueError("No file has been selected")
 

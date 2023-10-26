@@ -9,42 +9,43 @@ class extcheckerTests(unittest.TestCase):
         testFile.write("Hello World!")
         testFile.close()
 
+    def tearDown(self) -> None:
+        os.remove("./test.txt")
+
     def test_wrong_file_ext(self) -> None:
         """Test for checking if file extension corresponding to actual file
         extension type where input is wrong extension to actual file"""
 
         # Arrange
-        print(ExtChecker.check_file("test.txt"))
+        os.rename("./test.txt", "./test.pdf")
 
         # Act
+        ExtChecker.check_file("./test.pdf")
 
         # Assert
-
+        self.assertTrue(os.path.exists("./test.txt"))
 
     def test_correct_file_ext(self) -> None:
         """Test for checking if file extension corresponding to actual file
         extension type where input is correct extension to actual file"""
        
         # Arrange
-        
+        os.rename("./test.txt", "./test.pdf")
+
         # Act
+        ExtChecker.check_file("./test.pdf")
 
-        #Assert
+        # Assert
+        self.assertTrue(os.path.exists("./test.txt"))
 
-    def test_convert_file_ext(self) -> None:
-        """Test for wrong extension is inputtet"""
-      
-        # Arrange
-        
-        # Act
+    def test_no_file(self) -> None:
+        """Test for checking if exception handling is correct"""
 
-        #Assert
+        # Assert
+        self.assertRaises(ValueError, ExtChecker.check_file(None))
 
-    def test_convert_correct_file_ext(self) -> None:
-        """Test for wrong extension is inputtet"""
-     
-        # Arrange
-        
-        # Act
+    def test_file_not_exists(self) -> None:
+        """Test for checking if exception handling is correct when file doesn't exist"""
 
-        #Assert
+        # Assert
+        self.assertRaises(FileNotFoundError, ExtChecker.check_file("./NoneExistingFile.ABC"))
