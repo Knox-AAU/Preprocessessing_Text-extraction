@@ -3,7 +3,7 @@
 import os
 import sys
 
-if sys.argv[1] == 'lint'.lower():
+if sys.argv[1].lower() == 'lint':
     os.system('pylint ./**/*.py')
 
 elif sys.argv[1].lower() == 'test':
