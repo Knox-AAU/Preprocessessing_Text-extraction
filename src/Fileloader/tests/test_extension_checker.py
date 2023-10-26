@@ -3,11 +3,12 @@ import os
 import unittest
 from ..extension_checker import ExtChecker
 
-class extcheckerTests(unittest.TestCase):
+class ExtCheckerTests(unittest.TestCase):
+    """Unittesting of extension_checker"""
     def setUp(self) -> None:
-        testFile = open("test.txt", "a")
-        testFile.write("Hello World!")
-        testFile.close()
+        with open("test.txt", "a", encoding="utf-8") as test_file:
+            test_file.write("Hello World!")
+        test_file.close()
 
     def tearDown(self) -> None:
         os.remove("./test.txt")
@@ -28,7 +29,7 @@ class extcheckerTests(unittest.TestCase):
     def test_correct_file_ext(self) -> None:
         """Test for checking if file extension corresponding to actual file
         extension type where input is correct extension to actual file"""
-       
+
         # Arrange
         os.rename("./test.txt", "./test.pdf")
 
