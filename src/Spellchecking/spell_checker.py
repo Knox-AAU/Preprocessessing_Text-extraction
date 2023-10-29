@@ -26,7 +26,7 @@ class TrieNode:
 class SpellChecker:
     """Spell checking interface - instanisiated with sc = Spellchecker(word_list: string)"""
 
-    def __init__(self, word_list):
+    def __init__(self, word_list = None):
         """
         Got to have atleast one node in the tree - just stores one empty node
         """
@@ -34,9 +34,10 @@ class SpellChecker:
         self.word_list = word_list
         self.output = []
 
-        with open(self.word_list, encoding='ISO-8859-1', errors="ignore") as f:
-            for line in f:
-                self.insert(line)
+        if self.word_list is not None:
+            with open(self.word_list, encoding='utf-8') as f:
+                for line in f:
+                    self.insert(line.strip().lower())
 
     def insert(self, word):
         """Insert a word into the trie"""
@@ -56,28 +57,6 @@ class SpellChecker:
         node.is_end = True
         # Increment the counter to indicate that we see this word once more
         node.counter += 1
-
-    def clean_string(self, string):
-        """ Removes strings that is exactly empty, a dash or a dot """
-        # Resulting strings
-        res = []
-        # Dont accept "-"
-        for w in string.split('-'):
-            if w not in res and w != '\n':
-                res.append(w)
-
-        # Dont accept whitespaces
-        for w in string.split(' '):
-            if w not in res and w != '\n':
-                res.append(w)
-
-        # Dont accept dots
-        for w in string.split('.'):
-            if w not in res and w != '\n':
-                res.append(w)
-
-        # Return list with valid cleaned strings
-        return res
 
     def dfs(self, node, prefix):
         """Depth-first traversal of the trie
