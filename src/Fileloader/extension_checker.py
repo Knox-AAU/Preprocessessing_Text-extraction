@@ -20,10 +20,12 @@ class ExtChecker():
         if actual_ext_type == os.path.splitext(self.inputfile):
             return self.inputfile
 
+        print("Running")
         return self.convert_file(self.inputfile, actual_ext_type)
 
     def convert_file(self, file: str, actual_ext: str) -> str:
         """Converting file extension to actual extension"""
         old_file_ext = os.path.basename(file).split("/")[-1]
         new_file_ext = old_file_ext.replace(old_file_ext.split(".")[-1], actual_ext)
+        print(new_file_ext, old_file_ext)
         return new_file_ext

@@ -21,10 +21,11 @@ class ExtCheckerTests(unittest.TestCase):
         extension type where input is wrong extension to actual file"""
 
         # Arrange
+        wrong_ext_checker = ExtChecker("./test.pdf")
         os.rename("./test.txt", "./test.pdf")
 
         # Act
-        self.checker.check_file()
+        wrong_ext_checker.check_file()
 
         # Assert
         self.assertTrue(os.path.exists("./test.txt"))
