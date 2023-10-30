@@ -10,14 +10,14 @@ class ExtChecker():
 
     def check_file(self) -> str:
         """Checking file extension and calling convert if not actual extension"""
+        if self.inputfile is None:
+            raise ValueError("No file has been selected")
+        
         if os.path.exists(self.inputfile) == False:
             raise FileNotFoundError("File doesn't exist in folder")
 
-        if self.inputfile is None:
-            raise ValueError("No file has been selected")
-
         actual_ext_type = self.magic.from_file(self.inputfile).split("/")[-1]
-        if actual_ext_type == os.path.basename(self.inputfile).suffix:
+        if actual_ext_type == os.path.splitext(self.inputfile):
             return self.inputfile
 
         return self.convert_file(self.inputfile, actual_ext_type)
