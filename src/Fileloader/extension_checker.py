@@ -15,17 +15,19 @@ class ExtChecker():
         
         if os.path.exists(self.inputfile) == False:
             raise FileNotFoundError("File doesn't exist in folder")
-
+        
         actual_ext_type = self.magic.from_file(self.inputfile).split("/")[-1]
         if actual_ext_type == os.path.splitext(self.inputfile):
             return self.inputfile
 
-        print("Running")
         return self.convert_file(self.inputfile, actual_ext_type)
 
     def convert_file(self, file: str, actual_ext: str) -> str:
         """Converting file extension to actual extension"""
         old_file_ext = os.path.basename(file).split("/")[-1]
-        new_file_ext = old_file_ext.replace(old_file_ext.split(".")[-1], actual_ext)
-        print(new_file_ext, old_file_ext)
+        if actual_ext == "plain":
+            new_file_ext = old_file_ext.replace(old_file_ext.split(".")[-1], "txt")
+        else:    
+            new_file_ext = old_file_ext.replace(old_file_ext.split(".")[-1], actual_ext)
+        os.rename(old_file_ext, new_file_ext)
         return new_file_ext

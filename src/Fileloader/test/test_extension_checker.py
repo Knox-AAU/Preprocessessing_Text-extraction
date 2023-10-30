@@ -30,7 +30,7 @@ class ExtCheckerTests(unittest.TestCase):
         # Assert
         self.assertTrue(os.path.exists("./test.txt"))
 
-        os.remove("./test.pdf")
+        os.remove("./test.txt")
 
     def test_correct_file_ext(self) -> None:
         """Test for checking if file extension corresponding to actual file
