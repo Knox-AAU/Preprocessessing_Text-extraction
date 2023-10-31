@@ -13,9 +13,6 @@ class ExtCheckerTests(unittest.TestCase):
         self.file = "./test.txt"
         self.checker = ExtChecker(self.file)
 
-    # def tearDown(self) -> None:
-    #     os.remove("./test.txt")
-
     def test_wrong_file_ext(self) -> None:
         """Test for checking if file extension corresponding to actual file
         extension type where input is wrong extension to actual file"""
@@ -36,9 +33,6 @@ class ExtCheckerTests(unittest.TestCase):
         """Test for checking if file extension corresponding to actual file
         extension type where input is correct extension to actual file"""
 
-        # Arrange
-        # os.rename("./test.txt", "./test.pdf")
-
         # Act
         self.checker.check_file()
 
@@ -47,7 +41,7 @@ class ExtCheckerTests(unittest.TestCase):
 
     def test_no_file(self) -> None:
         """Test for checking if exception handling is correct"""
-        
+
         # Arrange
         no_file_test = ExtChecker()
 

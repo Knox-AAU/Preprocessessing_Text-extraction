@@ -12,10 +12,10 @@ class ExtChecker():
         """Checking file extension and calling convert if not actual extension"""
         if self.inputfile is None:
             raise ValueError("No file has been selected")
-        
-        if os.path.exists(self.inputfile) == False:
+
+        if os.path.exists(self.inputfile) is False:
             raise FileNotFoundError("File doesn't exist in folder")
-        
+
         actual_ext_type = self.magic.from_file(self.inputfile).split("/")[-1]
         if actual_ext_type == os.path.splitext(self.inputfile):
             return self.inputfile
@@ -27,7 +27,7 @@ class ExtChecker():
         old_file_ext = os.path.basename(file).split("/")[-1]
         if actual_ext == "plain":
             new_file_ext = old_file_ext.replace(old_file_ext.split(".")[-1], "txt")
-        else:    
+        else:
             new_file_ext = old_file_ext.replace(old_file_ext.split(".")[-1], actual_ext)
         os.rename(old_file_ext, new_file_ext)
         return new_file_ext
