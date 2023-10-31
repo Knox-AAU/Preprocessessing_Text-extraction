@@ -13,7 +13,7 @@ class TextExtractionTests(unittest.TestCase):
     def test_compare_text(self):
         #Arrange
         """perform ocr on the test image and extracts the words from file created and compare it to the test"""
-        ocr_comp('test.png')
+        #generate a txt file called extracted.txt from test.png here
         extracted_text = get_word_stream('extracted.txt')
         expected_text = get_word_stream('expected.txt')
         
