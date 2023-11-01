@@ -22,4 +22,3 @@ class TextExtractionTests(unittest.TestCase):
 
         #Assert
         self.assertTrue(result, 'the results is false thus the extracted is not correct')
-
