@@ -7,7 +7,7 @@ if sys.argv[1].lower() == 'lint':
     os.system('pylint ./**/*.py')
 
 elif sys.argv[1].lower() == 'test':
-    os.system("python -m unittest discover -s src -p 'test_*.py'")
+    os.system("python -m unittest discover -s src -p 'test_*.py' -v")
 
 else:
     print(f"Invalid command: {sys.argv[1]} - valid commands are: test & lint")

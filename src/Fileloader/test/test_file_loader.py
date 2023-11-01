@@ -1,6 +1,8 @@
 """Module providing a function printing python version."""
 import unittest
+
 from ..file_loader import FileLoader
+
 
 class TestCase(unittest.TestCase):
     """Testing the SpellChecker class"""

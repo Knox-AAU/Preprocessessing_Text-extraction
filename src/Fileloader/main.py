@@ -1,7 +1,9 @@
 """Main"""
 import os
-from watchdog.observers import Observer
+
 from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+
 from .file_loader import FileLoader
 
 fileLoader = FileLoader()

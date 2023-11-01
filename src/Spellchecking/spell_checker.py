@@ -2,6 +2,7 @@
 words whether they follow the english language 
 """
 import dataclasses
+from threading import Thread
 
 @dataclasses.dataclass
 class TrieNode:
@@ -33,6 +34,8 @@ class SpellChecker:
         self.root = TrieNode("")
         self.word_list = word_list
         self.output = []
+        self.thread = None
+        self.stop_consumation = False
 
         if self.word_list is not None:
             with open(self.word_list, encoding='utf-8') as f:
@@ -94,3 +97,36 @@ class SpellChecker:
 
         # Sort the results in reverse order and return
         return sorted(self.output, key=lambda x: x[1], reverse=True)
+
+    def _consume_queue_items(self, queue):
+        """ Inner function that runs the handling of the items to be validated """
+        test_valid = 0
+        test_invalid = 0
+        while True:
+            if self.stop_consumation is True:
+                # Line below is purely for testing - should be removed
+                print(f"\nFound {test_valid} valid words\nFound {test_invalid} invalid words")
+                break
+
+            item = queue.get()
+
+            if len(self.query(item)) > 0:
+                test_valid += 1
+            else:
+                test_invalid += 1
+
+            queue.done()
+
+
+    def consume_queue(self, queue):
+        """ Wrapper function that creates a seperate thread to consume the queued words """
+        self.thread = Thread(target=self._consume_queue_items, args=(queue,))
+        self.thread.daemon = True
+        self.thread.start()
+
+    def end_consumation(self):
+        """ 
+        Function that ends consumation should be called before program exits for gracefull exit 
+        """
+        self.stop_consumation = True
+        self.thread.join()

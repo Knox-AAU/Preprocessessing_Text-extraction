@@ -1,9 +1,11 @@
 """FileLoader needs to load files, check extension and format is usable for next step"""
 import dataclasses
 import os
+
 import pdf2image
-from pdf2image.exceptions import (PDFPopplerTimeoutError, PDFSyntaxError)
+from pdf2image.exceptions import PDFPopplerTimeoutError, PDFSyntaxError
 from PIL import Image
+
 
 @dataclasses.dataclass
 class ImageStructure:
