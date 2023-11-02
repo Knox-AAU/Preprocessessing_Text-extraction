@@ -1,4 +1,4 @@
-name: Docker Publish
+name: Docker Publish Spellchecker
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -17,7 +17,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}/spellchecker
 
 jobs:
-  build:
+  build_spellchecker:
 
     runs-on: ubuntu-latest
     permissions:
