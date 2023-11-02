@@ -11,8 +11,8 @@ class _Watcher(FileSystemEventHandler):
 
     def on_created(self, event):
         if not event.is_directory:
-            # Her gør noget med filer
             full_path = os.path.join(os.getcwd(), event.src_path)
+            # Just for tests
             print(f"File is created: {full_path}")
             self.function_to_run(full_path)
 
@@ -47,8 +47,3 @@ class FileWatcher:
             observer.stop()
 
         observer.join()
-
-if __name__ == '__main__':
-    fw = FileWatcher('./input', print)
-
-    fw.watch()
