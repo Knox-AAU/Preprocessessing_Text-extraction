@@ -17,9 +17,9 @@ class _Watcher(FileSystemEventHandler):
             self.function_to_run(full_path)
 
 @dataclasses.dataclass
-class FileWatcher:
+class FolderWatcher:
     """ 
-    :description: File watcher class that allows to watch a file and
+    :description: Folder watcher class that allows to watch a folder and
     handle files being created in that folder\n
     Takes two parameters\n
     :param: path_to_watch is a path to the folder that should be watched\n
