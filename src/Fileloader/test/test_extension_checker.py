@@ -6,6 +6,8 @@ from ..extension_checker import ExtChecker
 class ExtCheckerTests(unittest.TestCase):
     """Unittesting of extension_checker"""
     def setUp(self) -> None:
+        """Function automatically running before every test,
+        ensuring minor dependencies are initiated and intact"""
         with open("test.txt", "a", encoding="utf-8") as test_file:
             test_file.write("Hello World!")
         test_file.close()
@@ -19,15 +21,15 @@ class ExtCheckerTests(unittest.TestCase):
 
         # Arrange
         wrong_ext_checker = ExtChecker("./test.pdf")
-        os.rename("./test.txt", "./test.pdf")
+        os.rename("./test.plain", "./test.pdf")
 
         # Act
         wrong_ext_checker.check_file()
 
         # Assert
-        self.assertTrue(os.path.exists("./test.txt"))
+        self.assertTrue(os.path.exists("./test.plain"))
 
-        os.remove("./test.txt")
+        os.remove("./test.plain")
 
     def test_correct_file_ext(self) -> None:
         """Test for checking if file extension corresponding to actual file
@@ -37,7 +39,7 @@ class ExtCheckerTests(unittest.TestCase):
         self.checker.check_file()
 
         # Assert
-        self.assertTrue(os.path.exists("./test.txt"))
+        self.assertTrue(os.path.exists("./test.plain"))
 
     def test_no_file(self) -> None:
         """Test for checking if exception handling is correct"""
@@ -46,7 +48,7 @@ class ExtCheckerTests(unittest.TestCase):
         no_file_test = ExtChecker()
 
         # Assert
-        with self.assertRaises(ValueError):
+        with self.assertRaises(FileNotFoundError):
             no_file_test.check_file()
 
     def test_file_not_exists(self) -> None:
