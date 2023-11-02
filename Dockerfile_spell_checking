@@ -1,0 +1,15 @@
+FROM python:3-alpine3.18
+
+ENV DIR=/srv/docker/textextraction
+
+RUN mkdir spell_checking
+
+WORKDIR ${DIR}/spell_checking
+
+COPY requirements.txt .
+
+RUN pip install -r requirements.txt
+
+VOLUME [ "${DIR}/spell_checking" ]
+
+ENTRYPOINT [ "python3" , "main.py" ]

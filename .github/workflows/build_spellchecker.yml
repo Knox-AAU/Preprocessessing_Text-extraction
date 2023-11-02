@@ -51,8 +51,8 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.2.0
         with:
-          context: ./src/spell_checking
-          file: ./src/spell_checking/Dockerfile
+          context: ./
+          file: ./Dockerfile_spell_checking
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
