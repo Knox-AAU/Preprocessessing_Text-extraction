@@ -65,6 +65,9 @@ class TextExtractor():
 
                     # Put the read data in the queue for the further steps to handle
                     for word in text.split(' '):
+                        word = word.lower()
+                        word = word.strip()
+                        print(word)
                         # Here the word is split to only have a single word
                         # enter the queue at a time and not the whole text
                         self.queue.add(word)

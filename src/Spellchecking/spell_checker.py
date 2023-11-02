@@ -36,6 +36,9 @@ class SpellChecker:
         self.output = []
         self.thread = None
         self.stop_consumation = False
+        self.running = True
+        self.valid_words = 0
+        self.invalid_words = 0
 
         if self.word_list is not None:
             with open(self.word_list, encoding='utf-8') as f:
@@ -100,26 +103,32 @@ class SpellChecker:
 
     def _consume_queue_items(self, queue):
         """ Inner function that runs the handling of the items to be validated """
-        test_valid = 0
-        test_invalid = 0
+        # PRoblemet er at den kører ikke en sidste iteration efter at
+        # Self.running er blevet sat til False
         while True:
-            if self.stop_consumation is True:
-                # Line below is purely for testing - should be removed
-                print(f"\nFound {test_valid} valid words\nFound {test_invalid} invalid words")
+            if self.running is False:
                 break
-
+            print(self.running)
+            print("Running")
             item = queue.get()
 
             if len(self.query(item)) > 0:
-                test_valid += 1
+                self.valid_words += 1
             else:
-                test_invalid += 1
+                print(f"Invalid word: {item}")
+                self.invalid_words += 1
+
 
             queue.done()
 
+        # Lines below is purely for testing - should be removed
+        print(f"\nFound {self.valid_words} valid words")
+        print(f"\nFound {self.invalid_words} invalid words")
 
     def consume_queue(self, queue):
         """ Wrapper function that creates a seperate thread to consume the queued words """
+        self.valid_words = 0
+        self.invalid_words = 0
         self.thread = Thread(target=self._consume_queue_items, args=(queue,))
         self.thread.daemon = True
         self.thread.start()
@@ -128,5 +137,6 @@ class SpellChecker:
         """ 
         Function that ends consumation should be called before program exits for gracefull exit 
         """
-        self.stop_consumation = True
+        self.running = False
         self.thread.join()
+        self.thread.daemon = False

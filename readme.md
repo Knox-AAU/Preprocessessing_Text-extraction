@@ -21,8 +21,16 @@ pylint ./**/*.py
 ```
 
 # To run tests
+# Unit tests
 1) Be in root folder 
 2) 
 ```bash
 python -m unittest discover -s src -p 'test_*.py'
+```
+
+## Integration tests
+1) Be in root folder
+2)
+```bash
+python -m unittest discover -s src -p 'integration_*.py'
 ```
