@@ -10,4 +10,4 @@ RUN pip install -r requirements.txt
 
 VOLUME [ "${DIR}" ]
 
-ENTRYPOINT [ "python3" , "index.py" ]
+ENTRYPOINT [ "python3" , "src/main.py" ]
