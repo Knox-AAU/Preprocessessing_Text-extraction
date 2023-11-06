@@ -1,6 +1,6 @@
 # Activating and setting up virtualenv
 ```bash
-virtualenv .env && source .venv/bin/activate && pip install -r requirements.txt
+python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 ```
 
 # If cool boy:
