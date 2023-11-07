@@ -8,19 +8,19 @@ class TestCase(unittest.TestCase):
         """ Test if the readextension function reads the correct path """
         # Arrange
         file_loader = FileLoader()
-        file_loader.readextension('src/Fileloader/test/test.pdf')
+        file_loader.readextension('src/file_loader/test/test.pdf')
 
         # Act
         actual_path = file_loader.path
         # Assert
-        self.assertEqual(actual_path, 'src/Fileloader/test/test')
+        self.assertEqual(actual_path, 'src/file_loader/test/test')
 
 
     def test_reads_correct_extension(self):
         """ Test if the readextension function reads the correct file extension """
         # Arrange
         file_loader = FileLoader()
-        file_loader.readextension('src/Fileloader/test/test.pdf')
+        file_loader.readextension('src/file_loader/test/test.pdf')
 
         # Act
         actual_extension = file_loader.extension
@@ -35,7 +35,7 @@ class TestCase(unittest.TestCase):
         """ Test if the openpdf function correctly opens and reads data """
         # Arrange
         file_loader = FileLoader()
-        file_loader.readextension('src/Fileloader/test/test.pdf')
+        file_loader.readextension('src/file_loader/test/test.pdf')
 
         # Act
         file_loader.openpdf()
@@ -59,7 +59,7 @@ class TestCase(unittest.TestCase):
         """ Test if the openimage function correctly opens and reads data """
         # Arrange
         file_loader = FileLoader()
-        file_loader.readextension('src/Fileloader/test/test.jpg')
+        file_loader.readextension('src/file_loader/test/test.jpg')
 
         # Act
         file_loader.openimage()
