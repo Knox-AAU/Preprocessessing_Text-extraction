@@ -6,9 +6,9 @@ name: Build fileloader
 # documentation.
 
 on:
-  push: 
-    paths:
-      "src/file_loader"
+  push:
+    tags:
+      - '*'
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -17,7 +17,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}/file_loader
 
 jobs:
-  build_spellchecking:
+  build_file_loader:
 
     runs-on: ubuntu-latest
     permissions:
