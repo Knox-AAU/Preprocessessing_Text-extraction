@@ -1,4 +1,4 @@
-""" File watcher """
+""" File watcher - please send help """
 import os
 from time import sleep
 import dataclasses

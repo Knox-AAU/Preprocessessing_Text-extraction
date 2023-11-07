@@ -2,7 +2,7 @@
 import dataclasses
 import os
 import pdf2image
-from pdf2image.exceptions import (PDFPopplerTimeoutError, PDFSyntaxError)
+from pdf2image.exceptions import PDFPopplerTimeoutError, PDFSyntaxError
 from PIL import Image
 
 @dataclasses.dataclass

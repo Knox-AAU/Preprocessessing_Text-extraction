@@ -33,11 +33,14 @@ class SpellChecker:
         self.root = TrieNode("")
         self.word_list = word_list
         self.output = []
+        self.ready = False
 
         if self.word_list is not None:
             with open(self.word_list, encoding='utf-8') as f:
                 for line in f:
                     self.insert(line.strip().lower())
+
+        self.ready = True
 
     def insert(self, word):
         """Insert a word into the trie"""
@@ -94,3 +97,10 @@ class SpellChecker:
 
         # Sort the results in reverse order and return
         return sorted(self.output, key=lambda x: x[1], reverse=True)
+
+    def handle_files(self, read_file):
+        """ Test """
+        if self.ready is True:
+            with open(read_file, encoding="utf-8") as reading_file:
+                for word in reading_file.readline():
+                    print(word)
