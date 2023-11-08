@@ -2,7 +2,9 @@ FROM python:3-alpine3.18
 
 ENV DIR=/srv/docker/textextraction
 
-ENV MOUNTFOLDER=/srv/data/
+ENV MOUNTFOLDER=/srv/data
+
+RUN mkdir ${MOUNTFOLDER}/textextraction
 
 RUN mkdir ${MOUNTFOLDER}/textextraction/watched
 
