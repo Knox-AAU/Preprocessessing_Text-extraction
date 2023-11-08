@@ -26,3 +26,8 @@ pylint ./**/*.py
 ```bash
 python -m unittest discover -s src -p 'test_*.py'
 ```
+
+# Command to setup setuptools and fix imports etc
+````bash
+python3 -m pip install --editable .
+```
