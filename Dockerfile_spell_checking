@@ -6,11 +6,9 @@ RUN mkdir spell_checking
 
 WORKDIR ${DIR}/spell_checking
 
-COPY requirements.txt .
+COPY . ${DIR}/spell_checking
 
 RUN pip install -r requirements.txt
-
-COPY . .
 
 VOLUME [ "${DIR}/spell_checking" ]
 
