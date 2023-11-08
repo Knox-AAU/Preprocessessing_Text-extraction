@@ -41,6 +41,7 @@ class SpellChecker:
                     self.insert(line.strip().lower())
 
         self.ready = True
+        print("Spellchecker initialized")
 
     def insert(self, word):
         """Insert a word into the trie"""
@@ -98,9 +99,37 @@ class SpellChecker:
         # Sort the results in reverse order and return
         return sorted(self.output, key=lambda x: x[1], reverse=True)
 
+    def handle_files_print(self, read_file):
+        """ Test """
+
+        if self.ready is True:
+            validwords = 0
+            invalidwords = 0
+
+            with open(read_file, 'r', encoding="utf-8") as reading_file:
+                for line in reading_file.readlines():
+                    for word in line.split(" "):
+                        if len(self.query(word)) > 0:
+                            validwords += 1
+                        else:
+                            invalidwords += 1
+
+            print(f"Valid words: {validwords}\nInvalid words: {invalidwords}")
+
     def handle_files(self, read_file):
         """ Test """
         if self.ready is True:
-            with open(read_file, encoding="utf-8") as reading_file:
-                for word in reading_file.readline():
-                    print(word)
+            output_folder = "WatchedFolders/text_extraction/"
+            output_file_path = output_folder + "out_" + str(read_file).rsplit('/', maxsplit=1)[-1]
+
+            print(output_file_path)
+
+            with open(read_file, 'r', encoding="utf-8") as reading_file:
+                with open(output_file_path, 'w', encoding="utf-8") as output_file:
+                    for line in reading_file.readlines():
+                        for word in line.split(" "):
+
+                            word = word.strip()
+
+                            if len(self.query(word)) > 0:
+                                output_file.write(f"{word}\n")
