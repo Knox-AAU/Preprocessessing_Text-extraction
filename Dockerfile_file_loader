@@ -2,14 +2,16 @@ FROM python:3-alpine3.18
 
 ENV DIR=/srv/docker/textextraction
 
-WORKDIR ${DIR}/src/spell_checking
+RUN mkdir file_loader
 
-COPY ${DIR}/requirements.txt .
+WORKDIR ${DIR}/file_loader
+
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY ${DIR} .
+COPY . .
 
-VOLUME [ "${DIR}" ]
+VOLUME [ "${DIR}/file_loader" ]
 
 ENTRYPOINT [ "python3" , "main.py" ]

@@ -1,4 +1,4 @@
-name: Docker Publish
+name: Build fileloader
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -14,10 +14,10 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}/spellchecker
+  IMAGE_NAME: ${{ github.repository }}/file_loader
 
 jobs:
-  build:
+  build_file_loader:
 
     runs-on: ubuntu-latest
     permissions:
@@ -51,8 +51,8 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.2.0
         with:
-          context: ./src/spell_checking
-          file: ./src/spell_checking/Dockerfile
+          context: ./
+          file: ./Dockerfile_file_loader
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
