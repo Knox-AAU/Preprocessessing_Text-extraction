@@ -2,13 +2,14 @@ FROM python:3-alpine3.18
 
 ENV DIR=/srv/docker/textextraction
 
-ENV MOUNTFOLDER=/srv/data
+# ENV MOUNTFOLDER=/srv/data
 
-RUN mkdir ${MOUNTFOLDER}/textextraction
+# RUN mkdir ${MOUNTFOLDER}/textextraction
 
-RUN mkdir ${MOUNTFOLDER}/textextraction/watched
+# RUN mkdir ${MOUNTFOLDER}/textextraction/watched
 
-RUN mkdir ${MOUNTFOLDER}/textextraction/watched/spell_checking
+# RUN mkdir ${MOUNTFOLDER}/textextraction/watched/spell_checking
+
 
 RUN mkdir spell_checking
 
@@ -18,7 +19,7 @@ COPY . ${DIR}/spell_checking
 
 RUN pip install -r requirements.txt
 
-VOLUME [ "${MOUNTFOLDER}}/textextraction/spell_checking" ]
+# VOLUME [ "${MOUNTFOLDER}}/textextraction/spell_checking" ]
 
 RUN pip install --editable .
 
