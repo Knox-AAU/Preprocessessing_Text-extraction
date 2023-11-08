@@ -1,0 +1,25 @@
+version: '3.7'
+
+# volumes:
+# Add
+
+services:
+  spell_checking:
+    image: ghcr.io/knox-aau/preprocessessing_text-extraction/spell_checking:latest
+
+    container_name: spell_checking
+
+    build: 
+      context: .
+      dockerfile: Dockerfile_spell_checking
+    
+    restart: always
+
+    volumes:
+      - /srv/data/textextraction/watched:/watched
+
+  # file_loader:
+  #   image: 
+  
+  # text_extraction:
+  #   # add
