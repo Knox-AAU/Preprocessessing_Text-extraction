@@ -1,25 +1,32 @@
 version: '3.7'
 
-# volumes:
-# Add
-
 services:
   spell_checking:
     image: ghcr.io/knox-aau/preprocessessing_text-extraction/spell_checking:latest
 
     container_name: spell_checking
 
-    build: 
-      context: .
-      dockerfile: Dockerfile_spell_checking
-    
-    restart: always
+    restart: on-failure
 
     volumes:
       - /srv/data/textextraction/watched:/watched
 
-  # file_loader:
-  #   image: 
+  file_loader:
+    image: ghcr.io/knox-aau/preprocessessing_text-extraction/file_loader:latest
+
+    container_name: file_loader
+
+    restart: on-failure
+
+    volumes:
+      - /srv/data/textextraction/${file_loader_src}:/${file_loader_dist}
   
   # text_extraction:
-  #   # add
+  #   image: ghcr.io/knox-aau/preprocessessing_text-extraction/text_extraction:latest
+
+  #   container_name: text_extraction
+
+  #   restart: on-failure
+
+  #   volumes:
+  #     - /srv/data/textextraction/${text_extraction_src}:/${text_extraction_dist}
