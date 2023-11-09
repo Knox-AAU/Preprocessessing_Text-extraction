@@ -9,7 +9,7 @@ services:
     restart: on-failure
 
     volumes:
-      - /srv/data/textextraction/watched:/watched
+      - /srv/data/textextraction/watched/spell_checking:/watched
 
   file_loader:
     image: ghcr.io/knox-aau/preprocessessing_text-extraction/file_loader:latest
@@ -19,7 +19,7 @@ services:
     restart: on-failure
 
     volumes:
-      - /srv/data/textextraction/${file_loader_src}:/${file_loader_dist}
+      - /srv/data/textextraction/watched/file_loader:/watched
   
   # text_extraction:
   #   image: ghcr.io/knox-aau/preprocessessing_text-extraction/text_extraction:latest
@@ -29,4 +29,4 @@ services:
   #   restart: on-failure
 
   #   volumes:
-  #     - /srv/data/textextraction/${text_extraction_src}:/${text_extraction_dist}
+  #     - /srv/data/textextraction/watched/text_extraction:/watched
