@@ -21,12 +21,12 @@ services:
     volumes:
       - /srv/data/textextraction/watched/file_loader:/watched
   
-  # text_extraction:
-  #   image: ghcr.io/knox-aau/preprocessessing_text-extraction/text_extraction:latest
+  text_extraction:
+    image: ghcr.io/knox-aau/preprocessessing_text-extraction/text_extraction:latest
 
-  #   container_name: text_extraction
+    container_name: text_extraction
 
-  #   restart: on-failure
+    restart: on-failure
 
-  #   volumes:
-  #     - /srv/data/textextraction/watched/text_extraction:/watched
+    volumes:
+      - /srv/data/textextraction/watched/text_extraction:/watched

@@ -1,0 +1,15 @@
+FROM python:3-alpine3.18
+
+ENV DIR=/srv/docker/textextraction
+
+RUN mkdir text_extraction
+
+WORKDIR ${DIR}/text_extraction
+
+COPY . ${DIR}/text_extraction
+
+RUN pip install -r requirements.txt
+
+RUN pip install --editable .
+
+ENTRYPOINT [ "python3" , "src/text_extraction/main.py" ]
