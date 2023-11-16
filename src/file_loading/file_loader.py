@@ -5,6 +5,7 @@ import os
 import pdf2image
 from pdf2image.exceptions import PDFPopplerTimeoutError, PDFSyntaxError
 from PIL import Image
+from settings import SETTINGS
 
 @dataclasses.dataclass
 class ImageStructure:
@@ -79,7 +80,7 @@ class FileLoader:
 
     def handle_files(self, read_file):
         """ remake me """
-        output_folder = "/watched/text_extraction/"
+        output_folder = SETTINGS['text_extraction']["watched_folder"]
         output_file_path = output_folder + "out_" + str(read_file).rsplit('/', maxsplit=1)[-1]
 
         shutil.copy(read_file, output_file_path)

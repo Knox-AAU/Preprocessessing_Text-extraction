@@ -2,6 +2,7 @@
 words whether they follow the english language 
 """
 import dataclasses
+from settings import SETTINGS
 
 @dataclasses.dataclass
 class TrieNode:
@@ -119,7 +120,7 @@ class SpellChecker:
     def handle_files(self, read_file):
         """ Test """
         if self.ready is True:
-            output_folder = "/watched/output/"
+            output_folder = SETTINGS['spell_checking']['output_folder']
             output_file_path = output_folder + str(read_file).rsplit('/', maxsplit=1)[-1]
 
             print(output_file_path)

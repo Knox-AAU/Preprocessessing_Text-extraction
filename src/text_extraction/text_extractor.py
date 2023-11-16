@@ -2,17 +2,15 @@
 import dataclasses
 from tempfile import TemporaryDirectory
 from PIL import Image
-
 import pytesseract
 from pdf2image import convert_from_path
+from settings import SETTINGS
 
 # PDF_file = Path(r"./testdata/test5.pdf")
 @dataclasses.dataclass
 class TextExtractor():
     """ Text extraction interface """
     def __init__(self):
-        self.out_dir = "/watched/spell_checking/"
-        self.dpi = 500
         self.image_file_list = []
         # self.queue = queue
 
@@ -20,13 +18,13 @@ class TextExtractor():
         """ Inner function that converts and reads PDFs """
         #Part #1 : Converting PDF to images
 
-        out_path = f"{self.out_dir}{input_file.split('/')[-1]}"
+        out_path = f"{SETTINGS['spell_checking']['watched_folder']}{input_file.split('/')[-1]}"
 
         with open(out_path, 'w', encoding='utf-8') as outfile_handle:
             with TemporaryDirectory() as tempdir:
                 print("Converting path")
                 # Converts the input file to a list of pages
-                pdf_pages = convert_from_path(input_file, self.dpi)
+                pdf_pages = convert_from_path(input_file, SETTINGS['text_extraction']['dpi'])
                 print("Converted path to file")
 
                 # Loop over all the pages found above -> enumerate counts the pages for us
