@@ -1,10 +1,10 @@
 """FileLoader needs to load files, check extension and format is usable for next step"""
 import dataclasses
+import shutil
 import os
 import pdf2image
 from pdf2image.exceptions import PDFPopplerTimeoutError, PDFSyntaxError
 from PIL import Image
-from shutil import move
 
 @dataclasses.dataclass
 class ImageStructure:
@@ -82,13 +82,9 @@ class FileLoader:
         output_folder = "/watched/text_extraction/"
         output_file_path = output_folder + "out_" + str(read_file).rsplit('/', maxsplit=1)[-1]
 
-        move(read_file, output_file_path)
+        shutil.copy(read_file, output_file_path)
+
+        # print(f"shutil copied: {read_file}")
+        # os.remove(os.path.join(path, name))
 
         print(f"Fileloader moved: {read_file} to {output_file_path}")
-
-        # with open(read_file, 'rb') as reading_file:
-        #     with open(output_file_path, 'w', encoding="utf-8") as output_file:
-        #         data = reading_file.read().decode('utf-8')
-        #         for line in data.split("\n"):
-        #             print(line)
-        #             output_file.write(f"{line}\n")

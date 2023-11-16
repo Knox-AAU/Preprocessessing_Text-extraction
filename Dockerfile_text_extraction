@@ -6,6 +6,10 @@ RUN mkdir text_extraction
 
 RUN apk add poppler-utils
 
+RUN apk add tesseract-ocr
+
+ENV TESSDATA_PREFIX /usr/share/tesseract-ocr/4.00/tessdata
+
 WORKDIR ${DIR}/text_extraction
 
 COPY . ${DIR}/text_extraction
