@@ -10,13 +10,13 @@ class _Watcher(FileSystemEventHandler):
         self.function_to_run = function_to_run
 
     def on_created(self, event):
-        print(event)
+        # print(event)
         if not event.is_directory:
             full_path = os.path.join(os.getcwd(), event.src_path)
             self.function_to_run(full_path)
 
     def on_modified(self, event):
-        print(event)
+        # print(event)
         if not event.is_directory:
             full_path = os.path.join(os.getcwd(), event.src_path)
             self.function_to_run(full_path)

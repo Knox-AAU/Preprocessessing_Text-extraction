@@ -120,7 +120,7 @@ class SpellChecker:
         """ Test """
         if self.ready is True:
             output_folder = "/watched/output/"
-            output_file_path = output_folder + "out_" + str(read_file).rsplit('/', maxsplit=1)[-1]
+            output_file_path = output_folder + str(read_file).rsplit('/', maxsplit=1)[-1]
 
             print(output_file_path)
 

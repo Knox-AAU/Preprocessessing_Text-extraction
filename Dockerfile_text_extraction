@@ -8,7 +8,11 @@ RUN apk add poppler-utils
 
 RUN apk add tesseract-ocr
 
-ENV TESSDATA_PREFIX /usr/share/tesseract-ocr/4.00/tessdata
+RUN apk add tesseract-ocr-data-dan
+
+RUN apk add tesseract-ocr-data-eng
+
+ENV TESSDATA_PREFIX=/usr/share/tessdata
 
 WORKDIR ${DIR}/text_extraction
 
