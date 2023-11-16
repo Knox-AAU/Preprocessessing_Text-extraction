@@ -4,6 +4,16 @@ ENV DIR=/srv/docker/textextraction
 
 RUN mkdir text_extraction
 
+RUN apk add poppler-utils
+
+RUN apk add tesseract-ocr
+
+RUN apk add tesseract-ocr-data-dan
+
+RUN apk add tesseract-ocr-data-eng
+
+ENV TESSDATA_PREFIX=/usr/share/tessdata
+
 WORKDIR ${DIR}/text_extraction
 
 COPY . ${DIR}/text_extraction
@@ -12,4 +22,4 @@ RUN pip install -r requirements.txt
 
 RUN pip install --editable .
 
-ENTRYPOINT [ "python3" , "src/text_extraction/main.py" ]
+ENTRYPOINT [ "python3" , "-u", "src/text_extraction/main.py" ]

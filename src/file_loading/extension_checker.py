@@ -1,4 +1,5 @@
 """Module checking if input file is correct extension compared to files actual extension"""
+import shutil
 import os
 import magic
 
@@ -26,7 +27,7 @@ class ExtChecker():
         """Converting file extension to actual extension"""
         old_file_ext = os.path.basename(file).split("/")[-1]
         new_file_ext = old_file_ext.replace(old_file_ext.split(".")[-1], ext)
-        os.rename(old_file_ext, new_file_ext)
+        shutil.move(old_file_ext, new_file_ext)
         return new_file_ext
 
     def _get_extension(self, inputfile) -> str:

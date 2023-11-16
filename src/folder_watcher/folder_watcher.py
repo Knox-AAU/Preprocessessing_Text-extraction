@@ -10,10 +10,15 @@ class _Watcher(FileSystemEventHandler):
         self.function_to_run = function_to_run
 
     def on_created(self, event):
+        # print(event)
         if not event.is_directory:
             full_path = os.path.join(os.getcwd(), event.src_path)
-            # Just for tests
-            print(f"File is created: {full_path}")
+            self.function_to_run(full_path)
+
+    def on_modified(self, event):
+        # print(event)
+        if not event.is_directory:
+            full_path = os.path.join(os.getcwd(), event.src_path)
             self.function_to_run(full_path)
 
 @dataclasses.dataclass
@@ -36,8 +41,11 @@ class FolderWatcher:
         watcher = _Watcher(self.function_to_run)
 
         observer = Observer()
-        observer.schedule(watcher, path=self.path_to_watch, recursive=False)
+        observer.schedule(watcher, path=self.path_to_watch, recursive=True)
         observer.start()
+
+        # Remove; only for test
+        print(f"Watching: {self.path_to_watch}\n")
 
         try:
             while True:

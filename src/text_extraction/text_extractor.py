@@ -1,7 +1,6 @@
 """ Text extraction module for the Knox Pipeline """
 import dataclasses
 from tempfile import TemporaryDirectory
-from pathlib import Path
 from PIL import Image
 
 import pytesseract
@@ -12,7 +11,7 @@ from pdf2image import convert_from_path
 class TextExtractor():
     """ Text extraction interface """
     def __init__(self):
-        self.out_dir= Path("./out").expanduser()
+        self.out_dir = "/watched/spell_checking/"
         self.dpi = 500
         self.image_file_list = []
         # self.queue = queue
@@ -21,7 +20,8 @@ class TextExtractor():
         """ Inner function that converts and reads PDFs """
         #Part #1 : Converting PDF to images
 
-        out_path = self.out_dir + '_out_' + input_file.split('/')[:-1]
+        out_path = f"{self.out_dir}{input_file.split('/')[-1]}"
+
         with open(out_path, 'w', encoding='utf-8') as outfile_handle:
             with TemporaryDirectory() as tempdir:
                 print("Converting path")

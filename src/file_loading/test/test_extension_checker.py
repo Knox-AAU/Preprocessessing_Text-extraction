@@ -1,6 +1,7 @@
 """Unittests for extension checker"""
 import os
 import unittest
+import shutil
 from ..extension_checker import ExtChecker
 
 class ExtCheckerTests(unittest.TestCase):
@@ -21,7 +22,7 @@ class ExtCheckerTests(unittest.TestCase):
 
         # Arrange
         wrong_ext_checker = ExtChecker("./test.pdf")
-        os.rename("./test.plain", "./test.pdf")
+        shutil.move("./test.plain", "./test.pdf")
 
         # Act
         wrong_ext_checker.check_file()

@@ -4,6 +4,8 @@ ENV DIR=/srv/docker/textextraction
 
 RUN mkdir spell_checking
 
+RUN apk add poppler-utils
+
 WORKDIR ${DIR}/spell_checking
 
 COPY . ${DIR}/spell_checking
@@ -12,4 +14,4 @@ RUN pip install -r requirements.txt
 
 RUN pip install --editable .
 
-ENTRYPOINT [ "python3" , "src/spell_checking/main.py" ]
+ENTRYPOINT [ "python3" , "-u", "src/spell_checking/main.py" ]
