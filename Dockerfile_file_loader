@@ -1,0 +1,17 @@
+FROM python:3-alpine3.18
+
+ENV DIR=/srv/docker/textextraction
+
+RUN mkdir file_loading
+
+RUN apk add poppler-utils
+
+WORKDIR ${DIR}/file_loading
+
+COPY . ${DIR}/file_loading
+
+RUN pip install -r requirements.txt
+
+RUN pip install --editable .
+
+ENTRYPOINT [ "python3" , "-u", "src/file_loading/main.py" ]

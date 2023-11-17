@@ -26,17 +26,22 @@ class TrieNode:
 class SpellChecker:
     """Spell checking interface - instanisiated with sc = Spellchecker(word_list: string)"""
 
-    def __init__(self, word_list):
+    def __init__(self, word_list = None):
         """
         Got to have atleast one node in the tree - just stores one empty node
         """
         self.root = TrieNode("")
         self.word_list = word_list
         self.output = []
+        self.ready = False
 
-        with open(self.word_list, encoding='utf-8') as f:
-            for line in f:
-                self.insert(line)
+        if self.word_list is not None:
+            with open(self.word_list, encoding='utf-8') as f:
+                for line in f:
+                    self.insert(line.strip().lower())
+
+        self.ready = True
+        print("Spellchecker initialized")
 
     def insert(self, word):
         """Insert a word into the trie"""
@@ -56,28 +61,6 @@ class SpellChecker:
         node.is_end = True
         # Increment the counter to indicate that we see this word once more
         node.counter += 1
-
-    def clean_string(self, string):
-        """ Removes strings that is exactly empty, a dash or a dot """
-        # Resulting strings
-        res = []
-        # Dont accept "-"
-        for w in string.split('-'):
-            if w not in res and w != '\n':
-                res.append(w)
-
-        # Dont accept whitespaces
-        for w in string.split(' '):
-            if w not in res and w != '\n':
-                res.append(w)
-
-        # Dont accept dots
-        for w in string.split('.'):
-            if w not in res and w != '\n':
-                res.append(w)
-
-        # Return list with valid cleaned strings
-        return res
 
     def dfs(self, node, prefix):
         """Depth-first traversal of the trie
@@ -115,3 +98,38 @@ class SpellChecker:
 
         # Sort the results in reverse order and return
         return sorted(self.output, key=lambda x: x[1], reverse=True)
+
+    def handle_files_print(self, read_file):
+        """ Test """
+
+        if self.ready is True:
+            validwords = 0
+            invalidwords = 0
+
+            with open(read_file, 'r', encoding="utf-8") as reading_file:
+                for line in reading_file.readlines():
+                    for word in line.split(" "):
+                        if len(self.query(word)) > 0:
+                            validwords += 1
+                        else:
+                            invalidwords += 1
+
+            print(f"Valid words: {validwords}\nInvalid words: {invalidwords}")
+
+    def handle_files(self, read_file):
+        """ Test """
+        if self.ready is True:
+            output_folder = "/watched/output/"
+            output_file_path = output_folder + str(read_file).rsplit('/', maxsplit=1)[-1]
+
+            print(output_file_path)
+
+            with open(read_file, 'r', encoding="utf-8") as reading_file:
+                with open(output_file_path, 'w', encoding="utf-8") as output_file:
+                    for line in reading_file.readlines():
+                        for word in line.split(" "):
+
+                            word = word.strip()
+
+                            if len(self.query(word)) > 0:
+                                output_file.write(f"{word}\n")

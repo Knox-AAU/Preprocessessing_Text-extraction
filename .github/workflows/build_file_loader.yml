@@ -1,4 +1,4 @@
-name: Docker Publish
+name: Build fileloader
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -9,16 +9,15 @@ on:
   push:
     tags:
       - '*'
-  workflow_dispatch:
 
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}/file_loader
 
 jobs:
-  build:
+  build_file_loader:
 
     runs-on: ubuntu-latest
     permissions:
@@ -28,18 +27,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      # Replace tokens in appsettings with values from the repository secrets
-      #- uses: cschleiden/replace-tokens@v1
-      #  with:
-      #    file: DocumentDataAPI/DocumentDataAPI/appsettings.json
-      #  env:
-      #    DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
-      #    DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-      #    DATABASE_DATABASE: ${{ secrets.DATABASE_DATABASE }}
-      #    DATABASE_SCHEMA: ${{ secrets.DATABASE_SCHEMA }}
-      #    DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-      #    DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -65,7 +52,7 @@ jobs:
         uses: docker/build-push-action@v3.2.0
         with:
           context: ./
-          file: ./Dockerfile
+          file: ./Dockerfile_file_loader
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
