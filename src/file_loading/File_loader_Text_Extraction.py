@@ -4,7 +4,6 @@ import os
 from file_loading.file_loader import FileLoader
 from text_extraction.text_extractor import TextExtractor
 
-
 class TestIntegration(unittest.TestCase):
     def setUp(self):
         self.pdf_file = tempfile.NamedTemporaryFile(mode="wb", delete=False)
@@ -20,7 +19,7 @@ class TestIntegration(unittest.TestCase):
 
         # Act
         file_loader.readextension(self.pdf_file.name)
-        file_loader.openpdf()
+        file_loader.openpd()
         text_extractor.read(file_loader.images[0].file_name)
 
         # Assert
