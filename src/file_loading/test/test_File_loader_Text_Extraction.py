@@ -4,8 +4,6 @@ import os
 from file_loading.file_loader import FileLoader
 from text_extraction.text_extractor import TextExtractor
 
-
-
 class TestIntegration(unittest.TestCase):
     def setUp(self):
         self.pdf_file = tempfile.NamedTemporaryFile(mode="w + b", delete=False)
