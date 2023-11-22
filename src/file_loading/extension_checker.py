@@ -1,6 +1,7 @@
 """Module checking if input file is correct extension compared to files actual extension"""
 import shutil
 import os
+import re
 import magic
 
 class ExtChecker():
@@ -16,19 +17,19 @@ class ExtChecker():
 
         if os.path.exists(self.inputfile) is False:
             raise FileNotFoundError("File doesn't exist in folder")
+        actual_ext_type = self.get_extension(self.inputfile)
 
-        actual_ext_type = self._get_extension(self.inputfile)
-        if actual_ext_type == os.path.splitext(self.inputfile):
+        if actual_ext_type == os.path.splitext(self.inputfile)[1].replace('.',''):
             return self.inputfile
 
         return self.convert_file(self.inputfile, actual_ext_type)
 
     def convert_file(self, file: str, ext: str) -> str:
         """Converting file extension to actual extension"""
-        old_file_ext = os.path.basename(file).split("/")[-1]
-        new_file_ext = old_file_ext.replace(old_file_ext.split(".")[-1], ext)
-        shutil.move(old_file_ext, new_file_ext)
-        return new_file_ext
+        new_file = re.sub(r'[^.]+$', ext, file)
+        shutil.move(file, new_file)
+        return new_file
 
-    def _get_extension(self, inputfile) -> str:
+    def get_extension(self, inputfile) -> str:
+        """Gets the extension of the file"""
         return self.magic.from_file(inputfile).split("/")[-1]

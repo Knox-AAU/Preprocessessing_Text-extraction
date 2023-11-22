@@ -6,6 +6,8 @@ RUN mkdir file_loading
 
 RUN apk add poppler-utils
 
+RUN apk add libmagic
+
 WORKDIR ${DIR}/file_loading
 
 COPY . ${DIR}/file_loading
