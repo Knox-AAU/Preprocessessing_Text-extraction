@@ -117,12 +117,10 @@ class SpellChecker:
             print(f"Valid words: {validwords}\nInvalid words: {invalidwords}")
 
     def handle_files(self, read_file):
-        """ Test """
+        """ Internal filehandling for spell_checker """
         if self.ready is True:
             output_folder = "/watched/output/"
             output_file_path = output_folder + str(read_file).rsplit('/', maxsplit=1)[-1]
-
-            print(output_file_path)
 
             with open(read_file, 'r', encoding="utf-8") as reading_file:
                 with open(output_file_path, 'w', encoding="utf-8") as output_file:

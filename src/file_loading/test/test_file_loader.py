@@ -6,24 +6,28 @@ class TestCase(unittest.TestCase):
     """Testing the SpellChecker class"""
     def test_reads_correct_path(self):
         """ Test if the readextension function reads the correct path """
+
         # Arrange
         file_loader = FileLoader()
         file_loader.readextension('src/file_loading/test/test.pdf')
 
         # Act
         actual_path = file_loader.path
+
         # Assert
         self.assertEqual(actual_path, 'src/file_loading/test/test')
 
 
     def test_reads_correct_extension(self):
         """ Test if the readextension function reads the correct file extension """
+
         # Arrange
         file_loader = FileLoader()
         file_loader.readextension('src/file_loading/test/test.pdf')
 
         # Act
         actual_extension = file_loader.extension
+
         # Assert
         self.assertEqual(actual_extension, '.pdf')
 
@@ -33,6 +37,7 @@ class TestCase(unittest.TestCase):
     # TODO: Right now it just reads from printed output :))
     def test_opens_pdf(self):
         """ Test if the openpdf function correctly opens and reads data """
+
         # Arrange
         file_loader = FileLoader()
         file_loader.readextension('src/file_loading/test/test.pdf')
@@ -46,6 +51,7 @@ class TestCase(unittest.TestCase):
             file_loader.images[0].mode,
             file_loader.images[0].file_name,
         ]
+
         # Assert
         self.assertListEqual(actual, [
             'PPM',
@@ -57,6 +63,7 @@ class TestCase(unittest.TestCase):
 
     def test_opens_image(self):
         """ Test if the openimage function correctly opens and reads data """
+
         # Arrange
         file_loader = FileLoader()
         file_loader.readextension('src/file_loading/test/test.jpg')
@@ -69,6 +76,7 @@ class TestCase(unittest.TestCase):
             file_loader.images[0].mode,
             file_loader.images[0].file_name,
         ]
+
         # Assert
         self.assertListEqual(actual, [
             'JPEG',

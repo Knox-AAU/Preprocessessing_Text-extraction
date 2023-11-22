@@ -84,7 +84,4 @@ class FileLoader:
 
         shutil.copy(read_file, output_file_path)
 
-        # print(f"shutil copied: {read_file}")
-        # os.remove(os.path.join(path, name))
-
         print(f"Fileloader moved: {read_file} to {output_file_path}")
