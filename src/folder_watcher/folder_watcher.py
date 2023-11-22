@@ -10,7 +10,6 @@ class _Watcher(FileSystemEventHandler):
         self.function_to_run = function_to_run
 
     def on_created(self, event):
-        # print(event)
         if not event.is_directory:
             size_before = -1
             while os.path.getsize(event.src_path) != size_before:
@@ -19,12 +18,6 @@ class _Watcher(FileSystemEventHandler):
             full_path = os.path.join(os.getcwd(), event.src_path)
             full_path = event.src_path
             self.function_to_run(full_path)
-
-    # def on_modified(self, event):
-    #     # print(event)
-    #     if not event.is_directory:
-    #         full_path = os.path.join(os.getcwd(), event.src_path)
-    #         self.function_to_run(full_path)
 
 @dataclasses.dataclass
 class FolderWatcher:
