@@ -17,14 +17,14 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
         #Act
         text_extractor.read("src/spell_checking/Test_of_TextExtraction.pdf")
         spellchecker.handle_files("src/spell_checking/Test_of_TextExtraction.pdf")
-        with open("watched/output/Test_of_TextExtraction", 'r', encoding="utf-8") as spellchecked_file:
+        with open("watched/output/Test_of_TextExtraction.pdf", 'r', encoding="utf-8") as spellchecked_file:
             spellchecked_file = spellchecked_file.read().split('\n')
             print(f'Spellchecked text: {spellchecked_file}')
             if(spellchecked_file == expected_text):
-                incorrect = False
+                status = False
             else:
-                incorrect = True
+                status = True
        
         #Assert
-        self.assertTrue(incorrect)
+        self.assertTrue(status)
         
