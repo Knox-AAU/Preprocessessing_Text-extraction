@@ -12,7 +12,7 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
         spellchecker = SpellChecker("src/spell_checking/wordList.txt")
         text_extractor = TextExtractor()
         expected_text = []
-        with open("src/spell_checking/expected.txt", 'r', encoding="utf-8") as temp_text:
+        with open("src/spell_checking/test/expected.txt", 'r', encoding="utf-8") as temp_text:
             temp_text = temp_text.read().split()
             for word in temp_text:
                 word = word.lower()
@@ -21,7 +21,7 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
             print(f'Expected text: {expected_text}')
 
         #Act
-        text_extractor.read("src/spell_checking/Test_File.pdf")
+        text_extractor.read("src/spell_checking/test/Test_File.pdf")
         spellchecker.handle_files("/watched/spell_checking/Test_File.pdf")
         with open("/watched/output/Test_File.pdf", 'r', encoding="utf-8") as output:
             output = output.read().split('\n')
