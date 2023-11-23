@@ -2,6 +2,7 @@
 words whether they follow the english language 
 """
 import dataclasses
+import shutil
 
 @dataclasses.dataclass
 class TrieNode:
@@ -34,6 +35,7 @@ class SpellChecker:
         self.word_list = word_list
         self.output = []
         self.ready = False
+        self.out_dir = ""
 
         if self.word_list is not None:
             with open(self.word_list, encoding='utf-8') as f:
@@ -118,18 +120,19 @@ class SpellChecker:
 
     def handle_files(self, read_file):
         """ Test """
-        if self.ready is True:
-            output_folder = "/watched/output/"
-            output_file_path = output_folder + str(read_file).rsplit('/', maxsplit=1)[-1]
+        shutil.move(read_file, self.out_dir)
+        # if self.ready is True:
+        #     output_folder = "/watched/output/"
+        #     output_file_path = output_folder + str(read_file).rsplit('/', maxsplit=1)[-1]
 
-            print(output_file_path)
+        #     print(output_file_path)
 
-            with open(read_file, 'r', encoding="utf-8") as reading_file:
-                with open(output_file_path, 'w', encoding="utf-8") as output_file:
-                    for line in reading_file.readlines():
-                        for word in line.split(" "):
+        #     with open(read_file, 'r', encoding="utf-8") as reading_file:
+        #         with open(output_file_path, 'w', encoding="utf-8") as output_file:
+        #             for line in reading_file.readlines():
+        #                 for word in line.split(" "):
 
-                            word = word.strip()
+        #                     word = word.strip()
 
-                            if len(self.query(word)) > 0:
-                                output_file.write(f"{word}\n")
+        #                     if len(self.query(word)) > 0:
+        #                         output_file.write(f"{word}\n")

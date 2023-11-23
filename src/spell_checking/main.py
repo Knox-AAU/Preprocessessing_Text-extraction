@@ -5,6 +5,8 @@ from folder_watcher.folder_watcher import FolderWatcher
 if __name__ == '__main__':
     spellchecker = SpellChecker("src/spell_checking/wordList.txt")
 
+    spellchecker.out_dir = "/watched/output/"
+
     folderwatcher = FolderWatcher("/watched/spell_checking", spellchecker.handle_files)
 
     folderwatcher.watch()

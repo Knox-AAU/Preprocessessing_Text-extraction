@@ -38,4 +38,4 @@ services:
 
     volumes:
       - /srv/data/textextraction/watched/spell_checking:/watched/spell_checking
-      - /srv/data/textextraction/watched/output:/watched/output
+      - /srv/textextraction-output:/watched/output
