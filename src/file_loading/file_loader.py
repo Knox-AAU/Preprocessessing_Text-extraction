@@ -6,20 +6,23 @@ import pdf2image
 from pdf2image.exceptions import PDFPopplerTimeoutError, PDFSyntaxError
 from PIL import Image
 
+
 @dataclasses.dataclass
 class ImageStructure:
     """Structure of the images we want to give to the next step"""
+
     def __init__(self) -> None:
-        #more can be added if we want to save more information about the image loaded
+        # more can be added if we want to save more information about the image loaded
         self.image = None
         self.format = None
         self.size = None
         self.mode = None
         self.file_name = None
 
+
 @dataclasses.dataclass
 class FileLoader:
-    """ handling of files """
+    """handling of files"""
 
     def __init__(self):
         self.extension = None
@@ -28,7 +31,7 @@ class FileLoader:
         self.last_load_status = False
         self.finished_loading = False
 
-    def readextension(self,string):
+    def readextension(self, string):
         """Reads the extension of the file and selects method to be used"""
         self.path, self.extension = os.path.splitext(string)
 
@@ -47,8 +50,6 @@ class FileLoader:
             ims.size = image.size
             ims.mode = image.mode
             self.images.append(ims)
-
-
 
     def openimage(self):
         """loads images"""
@@ -78,9 +79,11 @@ class FileLoader:
                 os.remove(self.path + self.extension)
 
     def handle_files(self, read_file):
-        """ remake me """
+        """remake me"""
         output_folder = "/watched/text_extraction/"
-        output_file_path = output_folder + "out_" + str(read_file).rsplit('/', maxsplit=1)[-1]
+        output_file_path = (
+            output_folder + "out_" + str(read_file).rsplit("/", maxsplit=1)[-1]
+        )
 
         shutil.copy(read_file, output_file_path)
 
