@@ -17,7 +17,7 @@ class TextExtractor():
 
         out_path = f"{self.out_dir}{re.sub(r'[^.]+$', 'txt', os.path.basename(input_file))}"
 
-        text = str(((pytesseract.image_to_string(Image.open(input_file)))))
+        text = str(((pytesseract.image_to_string(Image.open(input_file),lang="dan"))))
 
         print("Reading file" + input_file)
 
