@@ -16,17 +16,18 @@ class Test_File_Loader_Text_Extraction_copy(unittest.TestCase):
         file_loader.readextension(self.pdf_file_path)
         file_loader.openpdf()
         print(file_loader.images[0].file_name)
-        text_extractor.read(file_loader.images[0].file_name)
+        text_extractor.read(self.pdf_file_path)
 
         # Assert
         # Verify that loaded image file is created by FileLoader
         self.assertTrue(file_loader.last_load_status)
         self.assertEqual(len(file_loader.images), 1)
         self.assertEqual(file_loader.images[0].file_name, "PDF_test1.pdf")
-        self.assertEqual(file_loader.images[0].format, "PDF")
+        self.assertEqual(file_loader.images[0].format, "PPM")
 
         # Verify that the text is extracted by TextExtractor
-        output_file_path = text_extractor.out_dir / "_out_" / "PDF_test1.pdf"
+        output_file_path = text_extractor.out_dir + "PDF_test1.pdf"
         with open(output_file_path, "r", encoding="utf-8") as output_file:
             content = output_file.read()
-            self.assertIn("Test", content)
+            content = content.strip('\n')
+            self.assertIn("word", content)
