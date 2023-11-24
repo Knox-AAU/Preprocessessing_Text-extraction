@@ -3,7 +3,7 @@
 python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 ```
 
-# If cool boy:
+# Helper functions (h file):
 To lint: 
 ```bash
 python h lint
@@ -29,19 +29,19 @@ python -m unittest discover -s src -p 'test_*.py'
 
 # Command to setup setuptools and fix imports etc
 ```bash
-python3 -m pip install --editable .
+python -m pip install --editable .
 ```
 
 # Docker compose commands
-
+*Sudo rights may be needed - use: " **sudo {command you want to run}** "*
 ### Build containers
 * **To build developer environment**
 ```bash
 docker compose -f docker-compose-dev.yml build
 ```
-* **To build production environment**
+* **To pull production environment**
 ```bash
-docker compose -f docker-compose-prod.yml build
+docker compose -f docker-compose-prod.yml pull
 ```
 
 ### Start containers
