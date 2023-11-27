@@ -6,7 +6,6 @@ from PIL import Image
 import pytesseract
 from pdf2image import convert_from_path
 
-# PDF_file = Path(r"./testdata/test5.pdf")
 @dataclasses.dataclass
 class TextExtractor():
     """ Text extraction interface """
@@ -14,7 +13,6 @@ class TextExtractor():
         self.out_dir = "/watched/spell_checking/"
         self.dpi = 500
         self.image_file_list = []
-        # self.queue = queue
 
     def read(self, input_file):
         """ Inner function that converts and reads PDFs """

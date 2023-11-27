@@ -78,13 +78,10 @@ class FileLoader:
                 os.remove(self.path + self.extension)
 
     def handle_files(self, read_file):
-        """ remake me """
+        """ File handler for moving files to text_extraction folder """
         output_folder = "/watched/text_extraction/"
         output_file_path = output_folder + "out_" + str(read_file).rsplit('/', maxsplit=1)[-1]
 
         shutil.copy(read_file, output_file_path)
-
-        # print(f"shutil copied: {read_file}")
-        # os.remove(os.path.join(path, name))
 
         print(f"Fileloader moved: {read_file} to {output_file_path}")
