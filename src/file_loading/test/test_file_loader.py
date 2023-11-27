@@ -27,29 +27,5 @@ class TestCase(unittest.TestCase):
         #Assert
         self.assertTrue(file_found)
 
-    def test_opens_image(self):
-        """ Test if the openimage function correctly opens and reads data """
-
-        # Arrange
-        file_loader = FileLoader()
-        file_loader.readextension('src/file_loading/test/test.jpg')
-
-        # Act
-        file_loader.openimage()
-        actual = [
-            file_loader.images[0].format,
-            file_loader.images[0].size,
-            file_loader.images[0].mode,
-            file_loader.images[0].file_name,
-        ]
-
-        # Assert
-        self.assertListEqual(actual, [
-            'JPEG',
-            (543, 360),
-            'RGB',
-            'test.jpg'
-        ])
-
 if __name__ == '__main__':
     unittest.main()

@@ -56,7 +56,7 @@ class FileLoader:
 
         extension_checker = ExtChecker()
         extension_checker.inputfile = read_file
-      
+
         self.path = extension_checker.check_file()
         self.extension = extension_checker.get_extension(read_file)
 
