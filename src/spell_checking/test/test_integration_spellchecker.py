@@ -1,5 +1,6 @@
 """Module providing functionaly needed to run integration test"""
 import unittest
+import os
 from spell_checking.spell_checker import SpellChecker
 from text_extraction.text_extractor import TextExtractor
 
@@ -9,8 +10,10 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
     def test_integration_spellchecker(self):
         """Method testing if the input of the textextractor cen be received by the spellchecker"""
         #Arrange
-        spellchecker = SpellChecker("src/spell_checking/wordList.txt")
         text_extractor = TextExtractor()
+        text_extractor.out_dir = "/watched/spell_checking/"
+        spellchecker = SpellChecker("src/spell_checking/wordList.txt")
+        spellchecker.out_dir = "/watched/output"
         expected_text = []
         with open("src/spell_checking/test/expected.txt", 'r', encoding="utf-8") as temp_text:
             temp_text = temp_text.read().split()
@@ -21,13 +24,13 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
             print(f'Expected text: {expected_text}')
 
         #Act
-        text_extractor.read("src/spell_checking/test/Test_File.pdf")
-        spellchecker.handle_files("/watched/spell_checking/Test_File.pdf")
-        with open("/watched/output/Test_File.pdf", 'r', encoding="utf-8") as output:
-            output = output.read().split('\n')
-            spellchecked_file = list(filter(lambda word: word != "", output))
-            print(f'Spellchecked text: {spellchecked_file}')
-            status = bool(spellchecked_file == expected_text)
+        if not os.path.exists("/watched/output/Test_File.txt"):
+            text_extractor.read("src/spell_checking/test/Test_File.jpg")
+            spellchecker.handle_files("/watched/spell_checking/Test_File.txt")
+        with open("/watched/output/Test_File.txt", 'r', encoding="utf-8") as output:
+            output = output.read().lower().split()
+            print(f'Spellchecked text: {output}')
+            status = bool(output == expected_text)
 
         #Assert
         self.assertTrue(status, "The text was not extracted correctly")
