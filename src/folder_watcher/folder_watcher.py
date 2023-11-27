@@ -10,15 +10,13 @@ class _Watcher(FileSystemEventHandler):
         self.function_to_run = function_to_run
 
     def on_created(self, event):
-        # print(event)
         if not event.is_directory:
+            size_before = -1
+            while os.path.getsize(event.src_path) != size_before:
+                size_before = os.path.getsize(event.src_path)
+                sleep(0.1)
             full_path = os.path.join(os.getcwd(), event.src_path)
-            self.function_to_run(full_path)
-
-    def on_modified(self, event):
-        # print(event)
-        if not event.is_directory:
-            full_path = os.path.join(os.getcwd(), event.src_path)
+            full_path = event.src_path
             self.function_to_run(full_path)
 
 @dataclasses.dataclass
@@ -31,21 +29,20 @@ class FolderWatcher:
     :param: function_to_run is the function that should be applied to the file that is found.
     this function should start by reading the file
     """
+
     def __init__(self, path_to_watch, function_to_run):
         self.path_to_watch = path_to_watch
         self.function_to_run = function_to_run
 
     def watch(self):
-        """ This method is a wrapper function that watches the folder and 
+        """This method is a wrapper function that watches the folder and 
         applys a function to files in the folder"""
+
         watcher = _Watcher(self.function_to_run)
 
         observer = Observer()
         observer.schedule(watcher, path=self.path_to_watch, recursive=True)
         observer.start()
-
-        # Remove; only for test
-        print(f"Watching: {self.path_to_watch}\n")
 
         try:
             while True:
