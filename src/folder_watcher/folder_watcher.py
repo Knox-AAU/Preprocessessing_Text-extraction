@@ -11,12 +11,12 @@ class _Watcher(FileSystemEventHandler):
 
     def on_created(self, event):
         if not event.is_directory:
+            size_before = -1
+            while os.path.getsize(event.src_path) != size_before:
+                size_before = os.path.getsize(event.src_path)
+                sleep(0.1)
             full_path = os.path.join(os.getcwd(), event.src_path)
-            self.function_to_run(full_path)
-
-    def on_modified(self, event):
-        if not event.is_directory:
-            full_path = os.path.join(os.getcwd(), event.src_path)
+            full_path = event.src_path
             self.function_to_run(full_path)
 
 @dataclasses.dataclass
