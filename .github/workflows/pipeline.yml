@@ -33,12 +33,6 @@ jobs:
       - run: sudo mkdir /watched/output
       - run: sudo apt-get update
       - run: sudo apt-get install poppler-utils
-      - run: sudo apt-get install libleptonica-dev'
-      - run: sudo apt-get tesseract-ocr
-      - run: sudo apt-get tesseract-ocr-dev
-      - run: sudo apt-get libtesseract-dev
-      - run: sudo apt-get python3-pil
-      - run: sudo apt-get tesseract-ocr-eng
-      - run: sudo apt-get tesseract-ocr-script-latn
+      - run: sudo apt-get install libleptonica-dev tesseract-ocr libtesseract-dev python3-pil tesseract-ocr-eng tesseract-ocr-script-latn
       - run: pip install -r requirements.txt
       - run: "python3 -m unittest discover -s src -p 'test_*.py'"
