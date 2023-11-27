@@ -31,6 +31,10 @@ jobs:
       - run: sudo mkdir /watched/file_loader
       - run: sudo mkdir /watched/text_extraction
       - run: sudo mkdir /watched/output
+      - run: sudo chmod -R 777 /watched/spell_checking
+      - run: sudo chmod -R 777 /watched/file_loader
+      - run: sudo chmod -R 777 /watched/text_extraction
+      - run: sudo chmod -R 777 /watched/output
       - run: sudo apt-get update
       - run: sudo apt-get install poppler-utils
       - run: sudo apt-get install libleptonica-dev tesseract-ocr libtesseract-dev python3-pil tesseract-ocr-eng tesseract-ocr-dan tesseract-ocr-script-latn
