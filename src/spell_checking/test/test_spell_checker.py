@@ -6,10 +6,10 @@ class TestCase(unittest.TestCase):
     """Testing the SpellChecker class"""
     def test_trie_initializes(self):
         """ Test if the Trie is correctly initialized """
+
         # Arrange
         sc = SpellChecker()
 
-        # Act
         # Assert
         actual = sc.root.char == ""
         self.assertEqual(actual, True)
@@ -17,8 +17,10 @@ class TestCase(unittest.TestCase):
 
     def test_trie_inserts_correctly(self):
         """ Test if the insert function works """
+
         # Arrange
         sc = SpellChecker()
+
         # Act
         sc.insert('test')
         actual = sc.query('t')
@@ -29,6 +31,7 @@ class TestCase(unittest.TestCase):
 
     def test_trie_query_correctly(self):
         """ Test if the query function works """
+
         # Arrange
         sc = SpellChecker()
         sc.insert('cat')

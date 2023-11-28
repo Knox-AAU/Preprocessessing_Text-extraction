@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  file_loader:
+    image: ghcr.io/knox-aau/preprocessessing_text-extraction/file_loader:latest
+
+    container_name: file_loader
+
+    restart: on-failure
+
+    volumes:
+      - /srv/data/textextraction/watched/file_loader:/watched/file_loader
+      - /srv/data/textextraction/watched/text_extraction:/watched/text_extraction
+  
+  text_extraction:
+    image: ghcr.io/knox-aau/preprocessessing_text-extraction/text_extraction:latest
+
+    container_name: text_extraction
+
+    restart: on-failure
+
+    volumes:
+      - /srv/data/textextraction/watched/text_extraction:/watched/text_extraction
+      - /srv/data/textextraction/watched/spell_checking:/watched/spell_checking
+
+  spell_checking:
+    image: ghcr.io/knox-aau/preprocessessing_text-extraction/spell_checking:latest
+
+    container_name: spell_checking
+
+    restart: on-failure
+
+    volumes:
+      - /srv/data/textextraction/watched/spell_checking:/watched/spell_checking
+      - /srv/textextraction-output:/watched/output

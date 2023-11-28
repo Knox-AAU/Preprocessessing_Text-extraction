@@ -2,8 +2,6 @@ version: '3.7'
 
 services:
   file_loader:
-    # image: ghcr.io/knox-aau/preprocessessing_text-extraction/file_loader:latest
-
     build: 
       context: .
       dockerfile: Dockerfile_file_loader
@@ -17,8 +15,6 @@ services:
       - /srv/data/textextraction/watched/text_extraction:/watched/text_extraction
   
   text_extraction:
-    # image: ghcr.io/knox-aau/preprocessessing_text-extraction/text_extraction:latest
-
     build:
       context: .
       dockerfile: Dockerfile_text_extraction
@@ -32,8 +28,6 @@ services:
       - /srv/data/textextraction/watched/spell_checking:/watched/spell_checking
 
   spell_checking:
-    # image: ghcr.io/knox-aau/preprocessessing_text-extraction/spell_checking:latest
-
     build: 
       context: .
       dockerfile: Dockerfile_spell_checking
@@ -44,4 +38,4 @@ services:
 
     volumes:
       - /srv/data/textextraction/watched/spell_checking:/watched/spell_checking
-      - /srv/data/textextraction/watched/output:/watched/output
+      - /srv/textextraction-output:/watched/output

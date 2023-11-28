@@ -1,21 +1,20 @@
 """ Text extraction module for the Knox Pipeline """
 import dataclasses
-from tempfile import TemporaryDirectory
+import os
+import re
 from PIL import Image
 import pytesseract
-from pdf2image import convert_from_path
 
 
 # PDF_file = Path(r"./testdata/test5.pdf")
+
 @dataclasses.dataclass
 class TextExtractor:
     """Text extraction interface"""
 
     def __init__(self):
-        self.out_dir = "/watched/spell_checking/"
+        self.out_dir = ""
         self.dpi = 500
-        self.image_file_list = []
-        # self.queue = queue
 
     def read(self, input_file):
         """Inner function that converts and reads PDFs"""
@@ -45,7 +44,10 @@ class TextExtractor:
                     self.image_file_list.append(filename)
                     print("Creating file " + filename)
 
-                    # Part #2 - Recognizing text from the images using OCR
+        """ Inner function that reads images and outputs the OCR text"""
+
+
+        out_path = f"{self.out_dir}{re.sub(r'[^.]+$', 'txt', os.path.basename(input_file))}"
 
                     # Iterate from 1 to total number of pages
                     for image_file in self.image_file_list:
@@ -60,9 +62,18 @@ class TextExtractor:
                             ((pytesseract.image_to_string(Image.open(image_file))))
                         )
 
-                        # Here a clean up of the text can be made
-                        # currently only newlines is being replaced with nothing
-                        text = text.replace("-\n", "")
+        text = str(((pytesseract.image_to_string(Image.open(input_file),lang="dan"))))
+
+        print("Reading file" + input_file)
+
+        text = text.replace("-\n", "")
+
+
+        # Save each sentence as a new line in the output file
+        with open(out_path, 'w', encoding='utf-8') as file:
+            print(text)
+            file.write(text)
+
 
                         # Put the read data in the queue for the further steps to handle
                         for word in text.split(" "):
@@ -72,3 +83,7 @@ class TextExtractor:
                             # Here the word is split to only have a single word
                             # enter the queue at a time and not the whole text
                             outfile_handle.write(word + "\n")
+
+        if os.path.exists(input_file):
+            os.remove(input_file)
+
