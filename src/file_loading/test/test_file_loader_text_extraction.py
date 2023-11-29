@@ -1,13 +1,23 @@
+"""
+Module providing functionality needed to run integration tests.
+"""
+
 import unittest
 from file_loading.file_loader import FileLoader
 from text_extraction.text_extractor import TextExtractor
 
-
-class Test_File_Loader_Text_Extraction_copy(unittest.TestCase):
+class TestFileLoaderTextExtraction(unittest.TestCase):
+    """
+    Integration test between file_loader and text_extraction.
+    """
     def setUp(self):
         self.pdf_file_path = "src/file_loading/test/PDF_test1.pdf"
 
     def test_file_loader_and_text_extractor_integration(self):
+        """
+        This method verifies that the FileLoader correctly loads an image file,
+        and the TextExtractor extracts text from the specified PDF file.
+        """
         # Arrange
         file_loader = FileLoader()
         text_extractor = TextExtractor()
