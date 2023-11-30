@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div class="row full-height">
+      <div class="instrument-box">
+        <!-- Dynamically rendered in render.ts -->
+        <div id="tracks" class="column instrument-column"></div>
+        <div class="row row-button">
+          <img
+            id="back-button"
+            class="button"
+            src="src/assets/images/toStartLight.png"
+          />
+          <img id="play-button" class="button" />
+        </div>
+      </div>
+      <div class="flex-1 min-height">
+        <!-- Dynamically generated in render.ts -->
+        <div id="timeline" class="gap flex-1"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,17 +1,21 @@
-"""
-Module providing functionality needed to run integration tests.
+""" 
+Module providing functionaly needed to run integration test. 
 """
 
 import unittest
+import os
 from file_loading.file_loader import FileLoader
 from text_extraction.text_extractor import TextExtractor
+
 
 class TestFileLoaderTextExtraction(unittest.TestCase):
     """
     Integration test between file_loader and text_extraction.
     """
+
     def setUp(self):
         self.pdf_file_path = "src/file_loading/test/PDF_test1.pdf"
+        self.output_folder_file_loader = "/watched/text_extraction/" + "out_0_PDF_test1.png"
 
     def test_file_loader_and_text_extractor_integration(self):
         """
@@ -20,24 +24,21 @@ class TestFileLoaderTextExtraction(unittest.TestCase):
         """
         # Arrange
         file_loader = FileLoader()
+        file_loader.output_folder = "/watched/text_extraction/"
         text_extractor = TextExtractor()
+        text_extractor.out_dir = "/watched/spell_checking/"
 
         # Act
-        file_loader.readextension(self.pdf_file_path)
-        file_loader.openpdf()
-        print(file_loader.images[0].file_name)
-        text_extractor.read(self.pdf_file_path)
+        if os.path.exists("src/file_loading/test/PDF_test1.pdf"):
+            file_loader.handle_files(self.pdf_file_path)
+            text_extractor.read(self.output_folder_file_loader)
 
         # Assert
         # Verify that loaded image file is created by FileLoader
-        self.assertTrue(file_loader.last_load_status)
-        self.assertEqual(len(file_loader.images), 1)
-        self.assertEqual(file_loader.images[0].file_name, "PDF_test1.pdf")
-        self.assertEqual(file_loader.images[0].format, "PPM")
-
+        self.assertTrue(os.path.exists("/watched/spell_checking/out_0_PDF_test1.txt"))
+        
         # Verify that the text is extracted by TextExtractor
-        output_file_path = text_extractor.out_dir + "PDF_test1.pdf"
+        output_file_path = text_extractor.out_dir + "out_0_PDF_test1.txt"
         with open(output_file_path, "r", encoding="utf-8") as output_file:
             content = output_file.read()
-            content = content.strip('\n')
-            self.assertIn("word", content)
+            self.assertIn("Word", content)

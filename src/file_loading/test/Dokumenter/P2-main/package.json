@@ -1,0 +1,16 @@
+{
+  "name": "p2",
+  "repository": "git@github.com:AAUP2/P2.git",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^7.0.0",
+    "prettier": "^2.6.0"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "lint": "cd frontend && yarn lint && cd ../backend && yarn lint",
+    "test": "cd frontend && yarn test --run"
+  }
+}
