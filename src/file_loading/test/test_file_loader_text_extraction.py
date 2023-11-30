@@ -36,7 +36,7 @@ class TestFileLoaderTextExtraction(unittest.TestCase):
         # Assert
         # Verify that loaded image file is created by FileLoader
         self.assertTrue(os.path.exists("/watched/spell_checking/out_0_PDF_test1.txt"))
-        
+
         # Verify that the text is extracted by TextExtractor
         output_file_path = text_extractor.out_dir + "out_0_PDF_test1.txt"
         with open(output_file_path, "r", encoding="utf-8") as output_file:

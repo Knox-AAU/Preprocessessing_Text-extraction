@@ -41,7 +41,7 @@ class FileLoader:
 
     def _output_file(self,image):
         """Saves image as png format in text_extraction output folder"""
-        output_file_path = self.output_folder + "out_" + str(image.index) + "_" + image.file_name        
+        output_file_path = self.output_folder + "out_" + str(image.index) + "_" + image.file_name
         new_file = re.sub(r'[^.]+$', "png", output_file_path)
         image.image.save(new_file)
 
