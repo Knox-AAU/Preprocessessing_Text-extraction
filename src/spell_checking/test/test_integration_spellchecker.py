@@ -14,13 +14,8 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
         text_extractor.out_dir = "/watched/spell_checking/"
         spellchecker = SpellChecker("src/spell_checking/wordList.txt")
         spellchecker.out_dir = "/watched/output"
-        expected_text = []
-        with open("src/spell_checking/test/expected.txt", 'r', encoding="utf-8") as temp_text:
-            temp_text = temp_text.read().split()
-            for word in temp_text:
-                word = word.lower()
-                word = word.strip()
-                expected_text.append(word)
+        with open("src/spell_checking/test/expected.txt", 'r', encoding="utf-8") as expected_text:
+            expected_text = expected_text.read().lower().split()
             print(f'Expected text: {expected_text}')
 
         #Act
