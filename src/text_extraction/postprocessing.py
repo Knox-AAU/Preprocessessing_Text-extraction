@@ -6,7 +6,7 @@ def clean_sentence(sentence: str) -> str:
 
     words = sentence.split()
     cleaned_words = [clean_word(word) for word in words]
-    
+
     # Remove any '' if empty string was returned from clean_word
     cleaned_words = [word for word in cleaned_words if word.strip() != '']
 
