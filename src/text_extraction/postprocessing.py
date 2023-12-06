@@ -17,7 +17,7 @@ def clean_sentence(sentence: str) -> str:
 def clean_word(word: str) -> str:
     """ Cleans a word making it as clean as possible for 
     positive detection in the spell_checking module """
-    invalid_characters = ['.', '-', ';', ',']
+    invalid_characters = ['.', '-', ';', ',', '(', ')']
     invalid_numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
     # Pre cleaning for common start point
@@ -36,6 +36,6 @@ def clean_word(word: str) -> str:
 
     # Check if any char of the word is in the invalid_characters
     if any(char in word for char in invalid_characters):
-        word = re.sub(r"[\.\,\-\;]*", "", word)
+        word = re.sub(r"[\.\,\-\;\(\)]*", "", word)
 
     return word

@@ -28,7 +28,7 @@ class PostProcessingTests(unittest.TestCase):
     def test_invalid_characters_removed(self):
         """ Check if invalid characters are correctly removed """
         # Arrange
-        to_test = "te.-,;st;"
+        to_test = "te.-,;s())t;"
         expected = "test"
         # Act
         actual = clean_word(to_test)
@@ -38,7 +38,7 @@ class PostProcessingTests(unittest.TestCase):
     def test_clean_sentence(self):
         """ Test to check if a sentence is properly cleaned """
         # Arrange
-        to_test = "this is a ; long se123ntence \n\n "
+        to_test = "this is a ; long se123ntence () \n\n "
         expected = "this is a long sentence"
 
         # Act
