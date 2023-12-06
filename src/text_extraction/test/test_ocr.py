@@ -18,7 +18,7 @@ class EdgeCaseTests(unittest.TestCase):
         #convert pdf to images and then perform ocr on those images
         pdf_images = convert_from_path('src/text_extraction/test/Testing_document.pdf')
         for image in enumerate(pdf_images):
-            image[1].save(f'src/text_extraction/test/pdf_page_{image[0]+1}.png', 'PNG')
+            image[1].save(temp_path + f"{image[0]+1}.png", 'PNG')
             text = text + (pytesseract.image_to_string(temp_path + f"{image[0]+1}.png",lang="dan"))
             os.remove(f"src/text_extraction/test/pdf_page_{image[0]+1}.png")
 
