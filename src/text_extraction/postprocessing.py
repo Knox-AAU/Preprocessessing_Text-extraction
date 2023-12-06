@@ -36,11 +36,6 @@ def clean_word(word: str) -> str:
 
     # Check if any char of the word is in the invalid_characters
     if any(char in word for char in invalid_characters):
-        # Loop characters in word
-        for i, char in enumerate(word):
-            # If character is in invalid characters and is not the last word
-            if char in invalid_characters and i != len(word) - 1:
-                # Replace the word with nothing
-                word = word.replace(char, "", 1)
+        word = re.sub(r"[\.\,\-\;]*", "", word)
 
     return word

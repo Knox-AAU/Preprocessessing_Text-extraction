@@ -29,7 +29,7 @@ class PostProcessingTests(unittest.TestCase):
         """ Check if invalid characters are correctly removed """
         # Arrange
         to_test = "te.-,;st;"
-        expected = "test;"
+        expected = "test"
         # Act
         actual = clean_word(to_test)
         # Assert
