@@ -1,2 +1,0 @@
-Test File
-This file has been made to test the integration between the text extractor and the spell checker
