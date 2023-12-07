@@ -15,9 +15,9 @@ class TestFileLoaderTextExtraction(unittest.TestCase):
     """
 
     def setUp(self):
-        source = "src/file_loading/test/test_files/PDF_test1.PDF"
+        source = "src/file_loading/test/test_files/PDF_test1.pdf"
         destination = "src/file_loading/test/PDF_test1.pdf"
-        
+
         try:
             shutil.copy(source, destination)
             print("File copied successfully.")
@@ -25,12 +25,10 @@ class TestFileLoaderTextExtraction(unittest.TestCase):
             print("Source and destination represents the same file.")
         except PermissionError:
             print("Permission denied.")
-        except: 
-            print("Error occurred while copying file.")
-                        
+
         self.pdf_file_path = "src/file_loading/test/PDF_test1.pdf"
         self.output_folder_file_loader = "/watched/text_extraction/" + "out_0_PDF_test1.png"
-        
+
     def tearDown(self):
         if os.path.exists(self.pdf_file_path):
             os.remove(self.pdf_file_path)
