@@ -64,3 +64,4 @@ class FileLoader:
             case 'pdf':
                 self.openpdf()
         self._remove_file()
+        
