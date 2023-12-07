@@ -4,6 +4,7 @@ Module providing functionaly needed to run integration test.
 
 import unittest
 import os
+import shutil
 from file_loading.file_loader import FileLoader
 from text_extraction.text_extractor import TextExtractor
 
@@ -14,8 +15,23 @@ class TestFileLoaderTextExtraction(unittest.TestCase):
     """
 
     def setUp(self):
+        source = "src/file_loading/test/test_files/PDF_test1.pdf"
+        destination = "src/file_loading/test/PDF_test1.pdf"
+
+        try:
+            shutil.copy(source, destination)
+            print("File copied successfully.")
+        except shutil.SameFileError:
+            print("Source and destination represents the same file.")
+        except PermissionError:
+            print("Permission denied.")
+
         self.pdf_file_path = "src/file_loading/test/PDF_test1.pdf"
         self.output_folder_file_loader = "/watched/text_extraction/" + "out_0_PDF_test1.png"
+
+    def tearDown(self):
+        if os.path.exists(self.pdf_file_path):
+            os.remove(self.pdf_file_path)
 
     def test_file_loader_and_text_extractor_integration(self):
         """
@@ -41,4 +57,5 @@ class TestFileLoaderTextExtraction(unittest.TestCase):
         output_file_path = text_extractor.out_dir + "out_0_PDF_test1.txt"
         with open(output_file_path, "r", encoding="utf-8") as output_file:
             content = output_file.read()
-            self.assertIn("Word", content)
+            self.assertIn("word", content)
+                        
