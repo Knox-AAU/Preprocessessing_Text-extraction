@@ -28,7 +28,6 @@ class TextExtractor():
 
         # Save each sentence as a new line in the output file
         with open(out_path, 'w', encoding='utf-8') as file:
-            print(cleaned_text)
             file.write(cleaned_text)
 
         if os.path.exists(input_file):
