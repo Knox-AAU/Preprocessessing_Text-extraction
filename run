@@ -1,0 +1,95 @@
+#!/bin/bash
+help(){
+    #Display help
+    echo "Usage: sh run COMMAND [OPTION]"
+    echo ""
+    echo "Usage example: sh run dev up"
+    echo ""
+    echo "Available Commands:"
+    echo "  setup         \t Setting up Environment, Setup-Tools and Fixes Imports"
+    echo "  lint          \t Run Lint on Project Files"
+    echo "  test          \t Run Test on Project Files"
+    echo "  dev  [up/down]\t Build and Start/Stop Docker-compose in DEV Environment"
+    echo "  prod [up/down]\t Build and Start/Stop Docker-compose in PROD Environment"
+    echo ""
+    echo "Options for dev & prod"
+    echo "  up   \t Start Selected Docker Environment"
+    echo "  down \t Stop Selected Docker Environment"
+    echo ""
+    echo "For more information check readme.md"
+}
+
+setup(){
+    python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+    python -m pip install --editable .
+}
+
+lint(){
+    pylint ./**/*.py
+}
+
+tests(){ ##FIX MANGLER NY CONTAINER
+    python -m unittest discover -s src -p 'test_*.py'
+}
+
+dev(){
+    case $2 in
+    up)
+    echo "Building images ... This might take some time..."
+    sudo docker compose -f docker-compose-dev.yml build --quiet
+    echo "Images Have Been Created"
+    docker compose -f docker-compose-dev.yml up -d
+    echo "Containers Created"
+    ;;
+
+    down)
+        echo "Stopping Containers"
+        docker compose -f docker-compose-dev.yml down
+        echo "Containers Stopped"
+    ;;
+    esac
+}
+
+prod(){
+    case $2 in
+    up)
+        echo "Pulling images ... This might take some time..."
+        sudo docker compose -f docker-compose-prod.yml pull
+        echo "Images Have Been Pulled and Built"
+        sudo docker compose -f docker-compose-prod.yml up -d
+        echo "Containers Created"
+    ;;
+
+    down)
+        echo "Stopping Containers"
+        docker compose -f docker-compose-prod.yml down
+        echo "Containers Stopped"
+    ;;
+    esac
+}
+
+case $1 in
+setup)
+    setup
+    ;;
+
+lint)
+    lint
+    ;;
+
+test)
+    tests
+    ;;
+
+dev)
+    dev
+    ;;
+
+prod)
+    prod
+    ;;
+
+*)
+    help
+    ;;
+esac

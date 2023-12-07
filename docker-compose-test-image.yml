@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  test_container:
+    build: 
+      context: .
+      dockerfile: Dockerfile_test_image
+
+    container_name: Project_tester
+
+    volumes:
+      - .:/project/
