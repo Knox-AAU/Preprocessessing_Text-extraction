@@ -32,3 +32,4 @@ class TextExtractor():
 
         if os.path.exists(input_file):
             os.remove(input_file)
+            
