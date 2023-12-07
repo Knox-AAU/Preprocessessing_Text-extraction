@@ -4,6 +4,7 @@ import os
 import re
 from PIL import Image
 import pytesseract
+from metadata_handler import MetadataHandler
 
 @dataclasses.dataclass
 class TextExtractor():
@@ -11,10 +12,10 @@ class TextExtractor():
     def __init__(self):
         self.out_dir = ""
         self.dpi = 500
+        self.metadata_handler = MetadataHandler()
 
     def read(self, input_file, file_name, index, uploader):
         """ Inner function that reads images and outputs the OCR text"""
-
         out_path = f"{self.out_dir}{re.sub(r'[^.]+$', 'txt', os.path.basename(input_file))}"
 
         text = str(((pytesseract.image_to_string(Image.open(input_file),lang="dan"))))
@@ -22,30 +23,23 @@ class TextExtractor():
         print("Reading file" + input_file)
 
         text = text.replace("-\n", "")
-
-        # Extract the title from the text (assumes title is at the beginning)
         title_match = re.search(r'^[^\n]+', text)
         title = title_match.group(0) if title_match else "No Title Found"
 
-        # Split text into sentences
-        sentences = re.split(
-            r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text
-        )
-
-        # Save each sentence as a new line in the output file with metadata
+        # Save each sentence as a new line in the output file
         with open(out_path, 'w', encoding='utf-8') as file:
-            # Write File name, Uploader, and Index information once
-            file.write(
-                f"File Name: {file_name}\n"
-                f"Uploader: {uploader}\n"
-                f"Index: {index}\n"
-                f"Title: {title}\n\n"
-            )
+            # Use MetadataHandler to write metadata
+            self.metadata_handler.write_metadata(file, file_name, uploader, index, title)
 
+            sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text)
+            
             for i, sentence in enumerate(sentences):
-                metadata = f"Sentence Index: {i + 1}\n"
-                file.write(metadata + sentence + '\n')
+                # Use MetadataHandler to write sentence metadata
+                self.metadata_handler.write_sentence_metadata(file, sentence, i + 1)
+
             print(text)
+            file.write(text)
 
         if os.path.exists(input_file):
             os.remove(input_file)
+            
