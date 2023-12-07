@@ -47,19 +47,19 @@ docker compose -f docker-compose-prod.yml pull
 ### Start containers
 * **To run developer environment**
 ```bash
-docker compose -f docker-compose-dev up -d
+docker compose -f docker-compose-dev.yml up -d
 ```
 * **To run production environment**
 ```bash
-docker compose -f docker-compose-prod up -d
+docker compose -f docker-compose-prod.yml up -d
 ```
 
 ### Stop containers
 * **To stop developer environment**
 ```bash
-docker compose -f docker-compose-dev down
+docker compose -f docker-compose-dev.yml down
 ```
 * **To stop production environment**
 ```bash
-docker compose -f docker-compose-prod down
+docker compose -f docker-compose-prod.yml down
 ```
