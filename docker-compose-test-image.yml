@@ -8,5 +8,7 @@ services:
 
     container_name: Project_tester
 
+    command: python -m unittest discover -s src -p 'test_*.py'
+
     volumes:
-      - .:/project/
+      - ./.testEnv:/project

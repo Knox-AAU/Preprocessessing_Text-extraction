@@ -1,25 +1,23 @@
 FROM python:3-alpine3.18
 
-ENV DIR=project
+ENV DIR=/project
 ENV TESSDATA_PREFIX=/usr/share/tessdata
 
-RUN mkdir file_loading
-RUN mkdir spell_checking
-RUN mkdir text_extraction
+RUN mkdir /watched
+RUN mkdir /watched/text_extraction
+RUN mkdir /watched/spell_checking
+RUN mkdir /watched/output
+RUN mkdir /watched/file_loader
 
 RUN apk add poppler-utils
 RUN apk add libmagic
-RUN apk add poppler-utils
-RUN apk add poppler-utils
 RUN apk add tesseract-ocr
 RUN apk add tesseract-ocr-data-dan
 RUN apk add tesseract-ocr-data-eng
 
-WORKDIR /${DIR}/
+COPY . ${DIR}
 
-COPY . ${DIR}/testing
+WORKDIR ${DIR}
 
 RUN pip install -r requirements.txt
 RUN pip install --editable .
-
-CMD [ "python -m unittest discover -s src -p 'test_*.py'" ]

@@ -1,4 +1,9 @@
 #!/bin/bash
+
+######Global var######
+option=$2
+######DONT TOUCH######
+
 help(){
     #Display help
     echo "Usage: sh run COMMAND [OPTION]"
@@ -6,7 +11,7 @@ help(){
     echo "Usage example: sh run dev up"
     echo ""
     echo "Available Commands:"
-    echo "  setup         \t Setting up Environment, Setup-Tools and Fixes Imports"
+    echo "  setup         \t Setting up Environment, Setup-Tools, Building Test-Tool and Fixes Imports"
     echo "  lint          \t Run Lint on Project Files"
     echo "  test          \t Run Test on Project Files"
     echo "  dev  [up/down]\t Build and Start/Stop Docker-compose in DEV Environment"
@@ -22,24 +27,27 @@ help(){
 setup(){
     python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
     python -m pip install --editable .
+    mkdir .testEnv
+    sudo docker compose -f docker-compose-test-image.yml build
 }
 
 lint(){
     pylint ./**/*.py
 }
 
-tests(){ ##FIX MANGLER NY CONTAINER
-    python -m unittest discover -s src -p 'test_*.py'
+tests(){
+    cp -r * .testEnv 2> /dev/null
+    sudo docker compose -f docker-compose-test-image.yml up
 }
 
 dev(){
-    case $2 in
+    case $option in
     up)
-    echo "Building images ... This might take some time..."
-    sudo docker compose -f docker-compose-dev.yml build --quiet
-    echo "Images Have Been Created"
-    docker compose -f docker-compose-dev.yml up -d
-    echo "Containers Created"
+        echo "Building images ... This might take some time..."
+        sudo docker compose -f docker-compose-dev.yml build --quiet
+        echo "Images Have Been Created"
+        docker compose -f docker-compose-dev.yml up -d
+        echo "Containers Created"
     ;;
 
     down)
@@ -47,11 +55,22 @@ dev(){
         docker compose -f docker-compose-dev.yml down
         echo "Containers Stopped"
     ;;
+
+    *)
+        echo ""
+        echo "UNKNOWN PARAMETER:"
+        echo \"$option\"
+        echo ""
+        echo "USE ONE OPTION PARAMETER:"
+        echo "  - up"
+        echo "  - down"
+        echo ""
+    ;;
     esac
 }
 
 prod(){
-    case $2 in
+    case $option in
     up)
         echo "Pulling images ... This might take some time..."
         sudo docker compose -f docker-compose-prod.yml pull
@@ -64,6 +83,17 @@ prod(){
         echo "Stopping Containers"
         docker compose -f docker-compose-prod.yml down
         echo "Containers Stopped"
+    ;;
+
+    *)
+        echo ""
+        echo "UNKNOWN PARAMETER:"
+        echo \"$option\"
+        echo ""
+        echo "USE ONE OPTION PARAMETER:"
+        echo "  - up"
+        echo "  - down"
+        echo ""
     ;;
     esac
 }
