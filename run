@@ -36,7 +36,7 @@ lint(){
 }
 
 tests(){
-    cp -r * .testEnv 2> /dev/null
+    sudo cp -r * .testEnv 2> /dev/null
     sudo docker compose -f docker-compose-test-image.yml up
 }
 
@@ -46,13 +46,13 @@ dev(){
         echo "Building images ... This might take some time..."
         sudo docker compose -f docker-compose-dev.yml build --quiet
         echo "Images Have Been Created"
-        docker compose -f docker-compose-dev.yml up -d
+        sudo docker compose -f docker-compose-dev.yml up -d
         echo "Containers Created"
     ;;
 
     down)
         echo "Stopping Containers"
-        docker compose -f docker-compose-dev.yml down
+        sudo docker compose -f docker-compose-dev.yml down
         echo "Containers Stopped"
     ;;
 
@@ -81,7 +81,7 @@ prod(){
 
     down)
         echo "Stopping Containers"
-        docker compose -f docker-compose-prod.yml down
+        sudo docker compose -f docker-compose-prod.yml down
         echo "Containers Stopped"
     ;;
 
