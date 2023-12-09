@@ -43,11 +43,14 @@ class TestFileLoaderTextExtraction(unittest.TestCase):
         file_loader.output_folder = "/watched/text_extraction/"
         text_extractor = TextExtractor()
         text_extractor.out_dir = "/watched/spell_checking/"
+        file_name = "PDF_test1.pdf"
+        index = 0
+        uploader = "TestUploader"
 
         # Act
         if os.path.exists("src/file_loading/test/PDF_test1.pdf"):
             file_loader.handle_files(self.pdf_file_path)
-            text_extractor.read(self.output_folder_file_loader)
+            text_extractor.read(self.output_folder_file_loader, file_name, index, uploader)
 
         # Assert
         # Verify that loaded image file is created by FileLoader
