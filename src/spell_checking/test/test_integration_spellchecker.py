@@ -41,6 +41,9 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
         relevant_output = [word for word in output if word not in exclude_words]
         relevant_expected = [word for word in expected_text if word not in exclude_words]
 
-        #Assert
-        self.assertTrue(status, "The text was not extracted correctly")
-        
+        # Assert
+        status = all(word in relevant_output for word in relevant_expected)
+        self.assertTrue(
+            status,
+            "The expected words are not present in the extracted text"
+        )
