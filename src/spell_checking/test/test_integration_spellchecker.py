@@ -1,6 +1,7 @@
 """Module providing functionaly needed to run integration test"""
 import unittest
 import os
+import shutil
 from spell_checking.spell_checker import SpellChecker
 from text_extraction.text_extractor import TextExtractor
 
@@ -14,9 +15,10 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
         text_extractor.out_dir = "/watched/spell_checking/"
         spellchecker = SpellChecker("src/spell_checking/wordList.txt")
         spellchecker.out_dir = "/watched/output"
-        with open("src/spell_checking/test/expected.txt", 'r', encoding="utf-8") as expected_text:
+        with open("src/spell_checking/test/test_files/expected.txt", 'r', encoding="utf-8") as expected_text:
             expected_text = expected_text.read().lower().split()
             print(f'Expected text: {expected_text}')
+        shutil.copy("src/spell_checking/test/test_files/Test_File.jpg", "src/spell_checking/test/Test_File.jpg")
 
         #Act
         if not os.path.exists("/watched/output/Test_File.txt"):
@@ -26,6 +28,8 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
             output = output.read().lower().split()
             print(f'Spellchecked text: {output}')
             status = bool(output == expected_text)
+        if os.path.exists("src/spell_checking/test/Test_File.jpg"):
+            os.remove("src/spell_checking/test/Test_File.jpg")
 
         #Assert
         self.assertTrue(status, "The text was not extracted correctly")
