@@ -27,6 +27,14 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
             print(f'Spellchecked text: {output}')
             status = bool(output == expected_text)
 
+        # Print expected and output text
+        print(f'Expected text: {expected_text}')
+        print(f'Output text: {output}')
+
+        # Inspect the content of the output file
+        with open("/watched/output/Test_File.txt", 'r', encoding="utf-8") as output_file:
+            print(f'Output file content: {output_file.read()}')
+
         #Assert
         self.assertTrue(status, "The text was not extracted correctly")
         
