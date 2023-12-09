@@ -5,6 +5,7 @@ import re
 from PIL import Image
 import pytesseract
 from .metadata_handler import MetadataHandler
+from .postprocessing import clean_sentence
 
 @dataclasses.dataclass
 class TextExtractor():
@@ -34,6 +35,8 @@ class TextExtractor():
             # Add other metadata as needed
         }
 
+        cleaned_text = clean_sentence(text)
+
         # Save each sentence as a new line in the output file
         with open(out_path, 'w', encoding='utf-8') as file:
             # Use MetadataHandler to write metadata
@@ -51,6 +54,7 @@ class TextExtractor():
 
             print(text)
             file.write(text)
+            file.write(cleaned_text)
 
         if os.path.exists(input_file):
             os.remove(input_file)
