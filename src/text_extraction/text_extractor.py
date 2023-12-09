@@ -15,7 +15,7 @@ class TextExtractor():
         self.dpi = 500
         self.metadata_handler = MetadataHandler()
 
-    def read(self, input_file, file_name, index, uploader):
+    def read(self, input_file, file_name=None, index=None, uploader=None):
         """ Inner function that reads images and outputs the OCR text"""
         out_path = f"{self.out_dir}{re.sub(r'[^.]+$', 'txt', os.path.basename(input_file))}"
 
