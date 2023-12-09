@@ -4,7 +4,7 @@ import os
 import re
 from PIL import Image
 import pytesseract
-from metadata_handler import MetadataHandler
+from .metadata_handler import MetadataHandler
 
 @dataclasses.dataclass
 class TextExtractor():
@@ -26,16 +26,28 @@ class TextExtractor():
         title_match = re.search(r'^[^\n]+', text)
         title = title_match.group(0) if title_match else "No Title Found"
 
+        metadata_dict = {
+            "File Name": file_name,
+            "Uploader": uploader,
+            "Index": index,
+            "Title": title,
+            # Add other metadata as needed
+        }
+
         # Save each sentence as a new line in the output file
         with open(out_path, 'w', encoding='utf-8') as file:
             # Use MetadataHandler to write metadata
-            self.metadata_handler.write_metadata(file, file_name, uploader, index, title)
+            self.metadata_handler.write_metadata(file, metadata_dict)
 
             sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text)
-            
-            for i, sentence in enumerate(sentences):
+
+            sentence_index = 1
+
+            for _, sentence in enumerate(sentences):
                 # Use MetadataHandler to write sentence metadata
-                self.metadata_handler.write_sentence_metadata(file, sentence, i + 1)
+                self.metadata_handler.write_sentence_metadata(sentence_index, sentence)
+
+                sentence_index += 1
 
             print(text)
             file.write(text)

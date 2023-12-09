@@ -22,11 +22,11 @@ class MetadataHandler:
         self.current_position = end_index
         return start_index, end_index
 
-    def write_metadata(self, file):
+    def write_metadata(self, file, metadata_dict):
         """
         Write metadata to the given file.
         """
-        metadata_str = "\n".join([f"{key}: {value}" for key, value in self.metadata.items()])
+        metadata_str = "\n".join([f"{key}: {value}" for key, value in metadata_dict.items()])
         file.write(metadata_str + "\n\n")
 
     def write_file_metadata(self, file_name, uploader, index, title):
