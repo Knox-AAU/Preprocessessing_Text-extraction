@@ -30,8 +30,6 @@ class TextExtractionTests(unittest.TestCase):
         extracted_text = get_word_stream("src/text_extraction/test/extracted.txt")
         expected_text = get_word_stream("src/text_extraction/test/test_files/expected.txt")
         #compares extracted text to the expected text to see if extraction was a success
-        print(extracted_text)
-        print(expected_text)
         result = extracted_text == expected_text
         #deletes the testing file that was copied over
         if os.path.exists("src/text_extraction/test/extracted.png"):
