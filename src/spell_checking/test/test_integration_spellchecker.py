@@ -27,13 +27,9 @@ class SpellcheckerIntegrationTests(unittest.TestCase):
             print(f'Spellchecked text: {output}')
             status = bool(output == expected_text)
 
-        # Print expected and output text
-        print(f'Expected text: {expected_text}')
-        print(f'Output text: {output}')
-
-        # Inspect the content of the output file
-        with open("/watched/output/Test_File.txt", 'r', encoding="utf-8") as output_file:
-            print(f'Output file content: {output_file.read()}')
+        # Extract relevant text for comparison
+        relevant_output = [word for word in output if word not in ["file", "name:", "none", "uploader:", "none", "index:", "none", "title:"]]
+        relevant_expected = [word for word in expected_text if word not in ["file", "name:", "none", "uploader:", "none", "index:", "none", "title:"]]
 
         #Assert
         self.assertTrue(status, "The text was not extracted correctly")
