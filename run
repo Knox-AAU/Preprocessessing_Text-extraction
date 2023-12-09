@@ -1,0 +1,125 @@
+#!/bin/bash
+
+######Global var######
+option=$2
+######DONT TOUCH######
+
+help(){
+    #Display help
+    echo "Usage: sh run COMMAND [OPTION]"
+    echo ""
+    echo "Usage example: sh run dev up"
+    echo ""
+    echo "Available Commands:"
+    echo "  setup         \t Setting up Environment, Setup-Tools, Building Test-Tool and Fixes Imports"
+    echo "  lint          \t Run Lint on Project Files"
+    echo "  test          \t Run Test on Project Files"
+    echo "  dev  [up/down]\t Build and Start/Stop Docker-compose in DEV Environment"
+    echo "  prod [up/down]\t Build and Start/Stop Docker-compose in PROD Environment"
+    echo ""
+    echo "Options for dev & prod"
+    echo "  up   \t Start Selected Docker Environment"
+    echo "  down \t Stop Selected Docker Environment"
+    echo ""
+    echo "For more information check readme.md"
+}
+
+setup(){
+    python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+    python3 -m pip install --editable .
+    mkdir .testEnv
+    sudo docker compose -f docker-compose-test-image.yml build
+}
+
+lint(){
+    pylint ./**/*.py
+}
+
+tests(){
+    sudo cp -r * .testEnv 2> /dev/null
+    sudo docker compose -f docker-compose-test-image.yml up
+}
+
+dev(){
+    case $option in
+    up)
+        echo "Building images ... This might take some time..."
+        sudo docker compose -f docker-compose-dev.yml build --quiet
+        echo "Images Have Been Created"
+        sudo docker compose -f docker-compose-dev.yml up -d
+        echo "Containers Created"
+    ;;
+
+    down)
+        echo "Stopping Containers"
+        sudo docker compose -f docker-compose-dev.yml down
+        echo "Containers Stopped"
+    ;;
+
+    *)
+        echo ""
+        echo "UNKNOWN PARAMETER:"
+        echo \"$option\"
+        echo ""
+        echo "USE ONE OPTION PARAMETER:"
+        echo "  - up"
+        echo "  - down"
+        echo ""
+    ;;
+    esac
+}
+
+prod(){
+    case $option in
+    up)
+        echo "Pulling images ... This might take some time..."
+        sudo docker compose -f docker-compose-prod.yml pull
+        echo "Images Have Been Pulled and Built"
+        sudo docker compose -f docker-compose-prod.yml up -d
+        echo "Containers Created"
+    ;;
+
+    down)
+        echo "Stopping Containers"
+        sudo docker compose -f docker-compose-prod.yml down
+        echo "Containers Stopped"
+    ;;
+
+    *)
+        echo ""
+        echo "UNKNOWN PARAMETER:"
+        echo \"$option\"
+        echo ""
+        echo "USE ONE OPTION PARAMETER:"
+        echo "  - up"
+        echo "  - down"
+        echo ""
+    ;;
+    esac
+}
+
+case $1 in
+setup)
+    setup
+    ;;
+
+lint)
+    lint
+    ;;
+
+test)
+    tests
+    ;;
+
+dev)
+    dev
+    ;;
+
+prod)
+    prod
+    ;;
+
+*)
+    help
+    ;;
+esac

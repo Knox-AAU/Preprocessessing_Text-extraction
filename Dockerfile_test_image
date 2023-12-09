@@ -1,0 +1,23 @@
+FROM python:3-alpine3.18
+
+ENV DIR=/project
+ENV TESSDATA_PREFIX=/usr/share/tessdata
+
+RUN mkdir /watched
+RUN mkdir /watched/text_extraction
+RUN mkdir /watched/spell_checking
+RUN mkdir /watched/output
+RUN mkdir /watched/file_loader
+
+RUN apk add poppler-utils
+RUN apk add libmagic
+RUN apk add tesseract-ocr
+RUN apk add tesseract-ocr-data-dan
+RUN apk add tesseract-ocr-data-eng
+
+COPY . ${DIR}
+
+WORKDIR ${DIR}
+
+RUN pip install -r requirements.txt
+RUN pip install --editable .
