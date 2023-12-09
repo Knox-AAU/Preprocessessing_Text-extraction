@@ -7,7 +7,7 @@ from text_extraction.text_extractor import TextExtractor
 def get_word_stream(path):
     """splits string read into individual words to compare the extracted words"""
     with open(path, encoding='utf8', mode='r') as file:
-        words = file.read().split()
+        words = file.read().lower().split()
         return words
 
 class TextExtractionTests(unittest.TestCase):
