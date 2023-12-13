@@ -7,7 +7,7 @@
 ## Build the project
 1) `Enter WSL (Windows ONLY)`
     * Open terminal -> type `WSL` -> Hit Enter -> type `cd` -> Hit Enter
-2) `git clone git@github.com:Knox-AAU/Preprocessessing_Text-extraction.git`
+2) `git clone https://github.com/Knox-AAU/Preprocessessing_Text-extraction.git`
 3) `cd Preprocessessing_Text-extraction`
 4) `source run setup`
 
