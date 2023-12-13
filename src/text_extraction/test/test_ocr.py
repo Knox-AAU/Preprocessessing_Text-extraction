@@ -4,6 +4,20 @@ import os
 import pytesseract
 from pdf2image import convert_from_path
 
+def chars_to_string(chars):
+    """function to convert a list of chars to a string"""
+    string = ' '.join(chars)
+    return string
+
+def log_results(passed_chars, declined_chars, text):
+    """function that creates a log in text file of the test results"""
+    with open("src/text_extraction/test/edge_cases_log.txt", 'w', encoding="utf-8") as log:
+        lines =["passed characters: " + chars_to_string(passed_chars) + "\n",
+                "declined characters: " + chars_to_string(declined_chars) + "\n",
+                f"passed:{len(passed_chars)}" + "|" + f"declined: {len(declined_chars)}"+"\n",
+                "the extracted text: \n", text]
+        log.writelines(lines)
+
 class EdgeCaseTests(unittest.TestCase):
     """Class containing the tests of edgecases for tesseract"""
 
@@ -40,13 +54,9 @@ class EdgeCaseTests(unittest.TestCase):
                 declined_chars.append(ground_truth[char])
 
         chars_evaluated = (len(passed_chars) > 0 or len(declined_chars) > 0)
-
-        print("passed characters:", passed_chars, "\n")
-        print("declined characters:", declined_chars, "\n")
-        print("passed:", len(passed_chars) ,"|","declined:", len(declined_chars), "\n")
-        print("the extracted text: \n", text)
+        log_results(passed_chars, declined_chars, text)
 
         #Assert
         self.assertTrue(status, "Nothing extracted")
-        self.assertGreater(chars_evaluated, 0, "characters have not been evaluated")
+        self.assertTrue(chars_evaluated, "characters have not been evaluated")
         

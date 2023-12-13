@@ -1,7 +1,6 @@
 """provides unit test functionality"""
 import unittest
 import shutil
-import os
 from text_extraction.text_extractor import TextExtractor
 
 def get_word_stream(path):
@@ -29,12 +28,6 @@ class TextExtractionTests(unittest.TestCase):
         #convert expected and extracted texts into lists
         extracted_text = get_word_stream("src/text_extraction/test/extracted.txt")
         expected_text = get_word_stream("src/text_extraction/test/test_files/expected.txt")
-        #compares extracted text to the expected text to see if extraction was a success
-        result = extracted_text == expected_text
-        #deletes the testing file that was copied over
-        if os.path.exists("src/text_extraction/test/extracted.png"):
-            os.remove("src/text_extraction/test/extracted.png")
 
         #Assert
-        self.assertTrue(result, 'the results is false thus the extracted text is not correct')
-        
+        self.assertEqual(extracted_text, expected_text, 'extracted text is not correct')
