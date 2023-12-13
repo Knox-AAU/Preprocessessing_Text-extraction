@@ -42,16 +42,6 @@ class TextExtractor():
             # Use MetadataHandler to write metadata
             self.metadata_handler.write_metadata(file, metadata_dict)
 
-            sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text)
-
-            sentence_index = 1
-
-            for _, sentence in enumerate(sentences):
-                # Use MetadataHandler to write sentence metadata
-                self.metadata_handler.write_sentence_metadata(sentence_index, sentence)
-
-                sentence_index += 1
-
             print(text)
             file.write(text)
             file.write(cleaned_text)
