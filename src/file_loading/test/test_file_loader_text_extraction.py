@@ -7,13 +7,13 @@ import os
 import shutil
 from file_loading.file_loader import FileLoader
 from text_extraction.text_extractor import TextExtractor
+from text_extraction.metadata_handler.metadata_handler import MetadataHandler
 
 
 class TestFileLoaderTextExtraction(unittest.TestCase):
     """
     Integration test between file_loader and text_extraction.
     """
-
     def setUp(self):
         source = "src/file_loading/test/test_files/PDF_test1.pdf"
         destination = "src/file_loading/test/PDF_test1.pdf"
@@ -39,18 +39,15 @@ class TestFileLoaderTextExtraction(unittest.TestCase):
         and the TextExtractor extracts text from the specified PDF file.
         """
         # Arrange
+        metadata_handler = MetadataHandler(api_url="http://knox-proxy01.srv.aau.dk/metadata-api")
         file_loader = FileLoader()
         file_loader.output_folder = "/watched/text_extraction/"
-        text_extractor = TextExtractor()
+        text_extractor = TextExtractor(metadata_handler=metadata_handler)
         text_extractor.out_dir = "/watched/spell_checking/"
-        file_name = "PDF_test1.pdf"
-        index = 0
-        uploader = "TestUploader"
 
         # Act
         if os.path.exists("src/file_loading/test/PDF_test1.pdf"):
             file_loader.handle_files(self.pdf_file_path)
-            text_extractor.read(self.output_folder_file_loader, file_name, index, uploader)
 
         # Assert
         # Verify that loaded image file is created by FileLoader
@@ -60,5 +57,7 @@ class TestFileLoaderTextExtraction(unittest.TestCase):
         output_file_path = text_extractor.out_dir + "out_0_PDF_test1.txt"
         with open(output_file_path, "r", encoding="utf-8") as output_file:
             content = output_file.read()
-            self.assertIn("word", content)
+            print(content)
+
+        self.assertIn("word", content)
                         

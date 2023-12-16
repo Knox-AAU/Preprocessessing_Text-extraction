@@ -1,14 +1,16 @@
 """Module providing functionaly needed to run integration test"""
 import unittest
 import os
+import responses
 from spell_checking.spell_checker import SpellChecker
 from text_extraction.text_extractor import TextExtractor
 
 class SpellcheckerIntegrationTests(unittest.TestCase):
     """Class containing the integrationtest between textextractor and spellchecker"""
 
+    @responses.activate
     def test_integration_spellchecker(self):
-        """Method testing if the input of the textextractor cen be received by the spellchecker"""
+        """Method testing if the input of the textextractor can be received by the spellchecker"""
         #Arrange
         text_extractor = TextExtractor()
         text_extractor.out_dir = "/watched/spell_checking/"
