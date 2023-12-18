@@ -1,7 +1,6 @@
 """ Text extraction module for the Knox Pipeline """
 import dataclasses
 import os
-import re
 from PIL import Image
 import pytesseract
 from .postprocessing import clean_sentence
@@ -13,15 +12,6 @@ class TextExtractor():
         self.out_dir = ""
         self.dpi = 500
         self.metadata_handler = metadata_handler
-
-    def find_title(self, text):
-        """Extracts a title from the given text using predefined keywords."""
-        cleaned_text = text.replace("-\n", "")
-        title_keywords = ["title", "heading", "chapter", "section"]
-        pattern = fr'\b(?:{"|".join(title_keywords)})\b.*'
-        title_match = re.search(pattern, cleaned_text, re.IGNORECASE)
-        title = title_match.group(0) if title_match else "No Title Found"
-        return title
 
     def read(self, input_file, index=None, uploader=None):
         """ Inner function that reads images and outputs the OCR text"""
@@ -45,8 +35,7 @@ class TextExtractor():
 
         print("Reading file" + input_file)
 
-        title = self.find_title(text)
-        self.metadata_handler.write_file_metadata(file_name, uploader, index, title)
+        self.metadata_handler.write_file_metadata(file_name, uploader, index)
         cleaned_text = clean_sentence(text)
 
         # Save each sentence as a new line in the output file
@@ -54,7 +43,6 @@ class TextExtractor():
             # Use MetadataHandler to write metadata
             self.metadata_handler.write_metadata(file)
 
-            print("Title:", title)
             print("Cleaned Text:", cleaned_text)
 
             print(text)

@@ -1,7 +1,11 @@
 astroid==3.0.0
+certifi==2023.11.17
+charset-normalizer==3.3.2
 colorama==0.4.6
 dill==0.3.7
+idna==3.6
 isort==5.12.0
+-e git+ssh://git@github.com/Knox-AAU/Preprocessessing_Text-extraction.git@ca4eca7678513199a46e33bd4771725f7c35dffb#egg=KnoxPipelineStep1
 mccabe==0.7.0
 mypy-extensions==1.0.0
 numpy==1.26.1
@@ -13,7 +17,11 @@ platformdirs==3.11.0
 pylint==3.0.1
 pytesseract==0.3.10
 python-magic==0.4.27
+PyYAML==6.0.1
+requests==2.31.0
+responses==0.24.1
 tomli==2.0.1
 tomlkit==0.12.1
 typing_extensions==4.8.0
+urllib3==2.1.0
 watchdog==3.0.0

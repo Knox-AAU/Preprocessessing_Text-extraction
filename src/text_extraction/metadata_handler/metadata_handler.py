@@ -48,7 +48,7 @@ class MetadataHandler:
         except ValueError as val_err:
             print("Value error decoding JSON response:", str(val_err))
 
-    def write_file_metadata(self, input_file, uploader, index, title):
+    def write_file_metadata(self, input_file, uploader, index):
         """
         Write file metadata
         """
@@ -57,7 +57,6 @@ class MetadataHandler:
             "File Name": file_name,
             "Uploader": uploader,
             "Index": index,
-            "Title": title
         }
 
     def write_sentence_metadata(self, sentence_index, sentence):
@@ -77,4 +76,3 @@ class MetadataHandler:
         """
         self.metadata = {}
         self.current_position = 0
-        

@@ -65,17 +65,15 @@ class TestMetadataHandler(unittest.TestCase):
         input_file = "/path/to/example.txt"
         uploader = "user"
         index = 1
-        title = "Test Title"
 
         # Act
-        self.metadata_handler.write_file_metadata(input_file, uploader, index, title)
+        self.metadata_handler.write_file_metadata(input_file, uploader, index)
 
         # Assert
         expected_metadata = {
             "File Name": "example.txt",
             "Uploader": "user",
             "Index": 1,
-            "Title": "Test Title"
         }
         self.assertEqual(self.metadata_handler.metadata, expected_metadata)
 
